@@ -4,8 +4,10 @@
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_x7t0t"]
 [ext_resource type="Script" path="res://scripts/flash_light.gd" id="3_qekst"]
+[ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
+size = Vector3(5, 10, 100)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fapf7"]
 
@@ -17,8 +19,16 @@ rim = 0.06
 rim_tint = 0.48
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x64le"]
+radius = 0.75
+height = 3.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_i4xge"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8txi6"]
+points = PackedVector3Array(0.0993287, 2.53869, 0.178725, 0.337517, -2.38011, -1.40838, -0.455629, -2.38011, 1.3694, 1.29, -2.53869, -0.693817, -0.772941, -2.53869, -1.24959, -0.138044, 2.53869, -0.138044, 0.49631, -2.45965, 1.3694, -1.16992, -2.53869, 0.893018, 0.178725, 2.45965, -0.138044, 1.3694, -2.45965, 0.49631, -1.32871, -2.45965, -0.614421, -0.138044, 2.45965, 0.178725, -1.40838, -2.38011, 0.337517, 0.893018, -2.30107, 1.13121, 0.893018, -2.45965, -1.16992, 1.3694, -2.22154, -0.296836, -0.296836, -2.38011, -1.40838, -1.01113, -2.22154, -1.01113, -0.693817, -2.53869, 1.29, 0.178725, 2.53869, 0.0993287, -1.40838, -2.30107, -0.138044, 1.2106, -2.38011, 0.813622, 0.337517, -2.22154, 1.3694, -0.931734, -1.90389, 0.972414, 1.3694, -2.22154, 0.337517, -1.16992, -2.06296, 0.734226, 1.2106, -2.30107, -0.772941, -0.296836, -2.22154, 1.3694, -0.614421, -2.142, -1.24959, 0.575706, -2.06296, -1.24959, -1.32871, -2.53869, -0.614421, -0.772941, -2.30107, 1.2106)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ksdq2"]
+data = PackedVector3Array(0, -2.5, -1.3687, 0.0195, 2.5, -0.0981, 0, 2.5, -0.1, 0, -2.5, -1.3687, 0.267, -2.5, -1.3424, 0.0195, 2.5, -0.0981, 0.267, -2.5, -1.3424, 0.0383, 2.5, -0.0924, 0.0195, 2.5, -0.0981, 0.267, -2.5, -1.3424, 0.5238, -2.5, -1.2645, 0.0383, 2.5, -0.0924, 0.5238, -2.5, -1.2645, 0.0556, 2.5, -0.0831, 0.0383, 2.5, -0.0924, 0.5238, -2.5, -1.2645, 0.7604, -2.5, -1.138, 0.0556, 2.5, -0.0831, 0.7604, -2.5, -1.138, 0.0707, 2.5, -0.0707, 0.0556, 2.5, -0.0831, 0.7604, -2.5, -1.138, 0.9678, -2.5, -0.9678, 0.0707, 2.5, -0.0707, 0.9678, -2.5, -0.9678, 0.0831, 2.5, -0.0556, 0.0707, 2.5, -0.0707, 0.9678, -2.5, -0.9678, 1.138, -2.5, -0.7604, 0.0831, 2.5, -0.0556, 1.138, -2.5, -0.7604, 0.0924, 2.5, -0.0383, 0.0831, 2.5, -0.0556, 1.138, -2.5, -0.7604, 1.2645, -2.5, -0.5238, 0.0924, 2.5, -0.0383, 1.2645, -2.5, -0.5238, 0.0981, 2.5, -0.0195, 0.0924, 2.5, -0.0383, 1.2645, -2.5, -0.5238, 1.3424, -2.5, -0.267, 0.0981, 2.5, -0.0195, 1.3424, -2.5, -0.267, 0.1, 2.5, 0, 0.0981, 2.5, -0.0195, 1.3424, -2.5, -0.267, 1.3687, -2.5, 0, 0.1, 2.5, 0, 1.3687, -2.5, 0, 0.0981, 2.5, 0.0195, 0.1, 2.5, 0, 1.3687, -2.5, 0, 1.3424, -2.5, 0.267, 0.0981, 2.5, 0.0195, 1.3424, -2.5, 0.267, 0.0924, 2.5, 0.0383, 0.0981, 2.5, 0.0195, 1.3424, -2.5, 0.267, 1.2645, -2.5, 0.5238, 0.0924, 2.5, 0.0383, 1.2645, -2.5, 0.5238, 0.0831, 2.5, 0.0556, 0.0924, 2.5, 0.0383, 1.2645, -2.5, 0.5238, 1.138, -2.5, 0.7604, 0.0831, 2.5, 0.0556, 1.138, -2.5, 0.7604, 0.0707, 2.5, 0.0707, 0.0831, 2.5, 0.0556, 1.138, -2.5, 0.7604, 0.9678, -2.5, 0.9678, 0.0707, 2.5, 0.0707, 0.9678, -2.5, 0.9678, 0.0556, 2.5, 0.0831, 0.0707, 2.5, 0.0707, 0.9678, -2.5, 0.9678, 0.7604, -2.5, 1.138, 0.0556, 2.5, 0.0831, 0.7604, -2.5, 1.138, 0.0383, 2.5, 0.0924, 0.0556, 2.5, 0.0831, 0.7604, -2.5, 1.138, 0.5238, -2.5, 1.2645, 0.0383, 2.5, 0.0924, 0.5238, -2.5, 1.2645, 0.0195, 2.5, 0.0981, 0.0383, 2.5, 0.0924, 0.5238, -2.5, 1.2645, 0.267, -2.5, 1.3424, 0.0195, 2.5, 0.0981, 0.267, -2.5, 1.3424, 0, 2.5, 0.1, 0.0195, 2.5, 0.0981, 0.267, -2.5, 1.3424, 0, -2.5, 1.3687, 0, 2.5, 0.1, 0, -2.5, 1.3687, -0.0195, 2.5, 0.0981, 0, 2.5, 0.1, 0, -2.5, 1.3687, -0.267, -2.5, 1.3424, -0.0195, 2.5, 0.0981, -0.267, -2.5, 1.3424, -0.0383, 2.5, 0.0924, -0.0195, 2.5, 0.0981, -0.267, -2.5, 1.3424, -0.5238, -2.5, 1.2645, -0.0383, 2.5, 0.0924, -0.5238, -2.5, 1.2645, -0.0556, 2.5, 0.0831, -0.0383, 2.5, 0.0924, -0.5238, -2.5, 1.2645, -0.7604, -2.5, 1.138, -0.0556, 2.5, 0.0831, -0.7604, -2.5, 1.138, -0.0707, 2.5, 0.0707, -0.0556, 2.5, 0.0831, -0.7604, -2.5, 1.138, -0.9678, -2.5, 0.9678, -0.0707, 2.5, 0.0707, -0.9678, -2.5, 0.9678, -0.0831, 2.5, 0.0556, -0.0707, 2.5, 0.0707, -0.9678, -2.5, 0.9678, -1.138, -2.5, 0.7604, -0.0831, 2.5, 0.0556, -1.138, -2.5, 0.7604, -0.0924, 2.5, 0.0383, -0.0831, 2.5, 0.0556, -1.138, -2.5, 0.7604, -1.2645, -2.5, 0.5238, -0.0924, 2.5, 0.0383, -1.2645, -2.5, 0.5238, -0.0981, 2.5, 0.0195, -0.0924, 2.5, 0.0383, -1.2645, -2.5, 0.5238, -1.3424, -2.5, 0.267, -0.0981, 2.5, 0.0195, -1.3424, -2.5, 0.267, -0.1, 2.5, 0, -0.0981, 2.5, 0.0195, -1.3424, -2.5, 0.267, -1.3687, -2.5, 0, -0.1, 2.5, 0, -1.3687, -2.5, 0, -0.0981, 2.5, -0.0195, -0.1, 2.5, 0, -1.3687, -2.5, 0, -1.3424, -2.5, -0.267, -0.0981, 2.5, -0.0195, -1.3424, -2.5, -0.267, -0.0924, 2.5, -0.0383, -0.0981, 2.5, -0.0195, -1.3424, -2.5, -0.267, -1.2645, -2.5, -0.5238, -0.0924, 2.5, -0.0383, -1.2645, -2.5, -0.5238, -0.0831, 2.5, -0.0556, -0.0924, 2.5, -0.0383, -1.2645, -2.5, -0.5238, -1.138, -2.5, -0.7604, -0.0831, 2.5, -0.0556, -1.138, -2.5, -0.7604, -0.0707, 2.5, -0.0707, -0.0831, 2.5, -0.0556, -1.138, -2.5, -0.7604, -0.9678, -2.5, -0.9678, -0.0707, 2.5, -0.0707, -0.9678, -2.5, -0.9678, -0.0556, 2.5, -0.0831, -0.0707, 2.5, -0.0707, -0.9678, -2.5, -0.9678, -0.7604, -2.5, -1.138, -0.0556, 2.5, -0.0831, -0.7604, -2.5, -1.138, -0.0383, 2.5, -0.0924, -0.0556, 2.5, -0.0831, -0.7604, -2.5, -1.138, -0.5238, -2.5, -1.2645, -0.0383, 2.5, -0.0924, -0.5238, -2.5, -1.2645, -0.0195, 2.5, -0.0981, -0.0383, 2.5, -0.0924, -0.5238, -2.5, -1.2645, -0.267, -2.5, -1.3424, -0.0195, 2.5, -0.0981, -0.267, -2.5, -1.3424, 0, 2.5, -0.1, -0.0195, 2.5, -0.0981, -0.267, -2.5, -1.3424, 0, -2.5, -1.3687, 0, 2.5, -0.1)
 
 [sub_resource type="Environment" id="Environment_0o4g1"]
 background_mode = 1
@@ -32,7 +42,7 @@ glow_hdr_scale = 0.0
 glow_hdr_luminance_cap = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1oypq"]
-size = Vector3(1.5, 100, 100)
+size = Vector3(1, 100, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yp8yy"]
 albedo_color = Color(0.805909, 0, 0.172215, 1)
@@ -41,28 +51,6 @@ emission = Color(0.868188, 0.002849, 0.174914, 1)
 backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_l27tc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5fq2"]
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.0253439, 0.000703501, 0.00138421, 1)
-billboard_mode = 1
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ln6pm"]
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector3(0, 0, 0)
-spread = 0.0
-flatness = 1.0
-gravity = Vector3(0, 0, 0)
-linear_accel_min = 2.0
-linear_accel_max = 5.0
-radial_accel_min = -2.23517e-06
-radial_accel_max = -2.23517e-06
-turbulence_enabled = true
-turbulence_noise_scale = 1.0
-
-[sub_resource type="QuadMesh" id="QuadMesh_si7ut"]
-size = Vector2(0.2, 0.2)
 
 [node name="Main" type="Node3D"]
 
@@ -77,6 +65,7 @@ gravity_scale = 0.0
 freeze = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 shape = SubResource("BoxShape3D_x4gb1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -87,10 +76,13 @@ mesh = SubResource("BoxMesh_fapf7")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 2.42, 0)
 script = ExtResource("1_jab5s")
 target = NodePath("../Player/CameraTarget")
-offset = Vector3(-10, 2.5, 0)
+offset = Vector3(-10, 5, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+axis_lock_linear_x = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_x7t0t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
@@ -98,12 +90,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0226, 0)
 shape = SubResource("CapsuleShape3D_upsao")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00655, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54507, 0)
 material_override = SubResource("StandardMaterial3D_xytw4")
 mesh = SubResource("CapsuleMesh_x64le")
 
 [node name="FlashLight" type="Node3D" parent="Player" node_paths=PackedStringArray("camera", "debugSphere")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.638892, 0.961707, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.844718, 1.49373, 0)
 script = ExtResource("3_qekst")
 camera = NodePath("../../Camera3D")
 debugSphere = NodePath("../../DebugSphere")
@@ -128,65 +120,128 @@ light_color = Color(0.98734, 0.799148, 0.588374, 1)
 light_energy = 0.2
 omni_range = 1.0
 
-[node name="GPUParticlesAttractorBox3D" type="GPUParticlesAttractorBox3D" parent="Player/FlashLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20469, 4.73356)
-strength = -50.0
-attenuation = 0.0059208
-directionality = 1.0
+[node name="EnemyRepeller" type="Area3D" parent="Player/FlashLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.22966)
+collision_layer = 16384
+collision_mask = 16384
+gravity_point_center = Vector3(0, 0, -10)
+gravity_direction = Vector3(0, 0, -10)
+gravity = 10.0
 
-[node name="GPUParticlesAttractorBox3D2" type="GPUParticlesAttractorBox3D" parent="Player/FlashLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0193176, 0.101159, 2.69182)
-strength = -50.0
-attenuation = 0.0059208
-directionality = 1.0
-size = Vector3(1.4693, 1.79324, 2)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Player/FlashLight/EnemyRepeller"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -9.12785e-08, -2.08821)
+shape = SubResource("ConvexPolygonShape3D_8txi6")
 
-[node name="GPUParticlesAttractorBox3D3" type="GPUParticlesAttractorBox3D" parent="Player/FlashLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0193176, 0.0185349, 1.11941)
-strength = -50.0
-attenuation = 0.0059208
-directionality = 1.0
-size = Vector3(1.4693, 1.05741, 1.04977)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/FlashLight/EnemyRepeller"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -9.66256e-08, -2.21054)
+visible = false
+shape = SubResource("ConcavePolygonShape3D_ksdq2")
+disabled = true
 
 [node name="CameraTarget" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.665011, 4.55301, 0)
 
-[node name="OuterAttractor" type="GPUParticlesAttractorSphere3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09271, 0)
-strength = 5.0
-radius = 10.0
-
-[node name="InnerRepulsor" type="GPUParticlesAttractorSphere3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09271, 0)
-strength = -100.0
-radius = 1.25
+[node name="AttackTarget" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.838146, 1.48195, 0.375698)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0o4g1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.690529, 0.723305, 0, -0.723305, 0.690529, 0, 5.16962, 2.0906)
-visible = false
 light_energy = 0.079
 sky_mode = 1
 
 [node name="MouseDetectionPlane" type="Area3D" parent="."]
-collision_layer = 32768
-collision_mask = 32768
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.401642, 0, 0)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MouseDetectionPlane"]
 shape = SubResource("BoxShape3D_1oypq")
 
 [node name="DebugSphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.19707, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_yp8yy")
 mesh = SubResource("SphereMesh_l27tc")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0.638892, 1.9858, -3.06509)
-material_override = SubResource("StandardMaterial3D_t5fq2")
-amount = 50
-lifetime = 3.0
-preprocess = 1.0
-process_material = SubResource("ParticleProcessMaterial_ln6pm")
-draw_pass_1 = SubResource("QuadMesh_si7ut")
+[node name="ShadowyFly" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly7" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly8" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly9" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly10" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly11" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly12" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly13" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly14" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly15" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly16" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly17" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly18" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly19" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
+
+[node name="ShadowyFly20" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 3.21494, -5.27964)
+target = NodePath("../Player/AttackTarget")
