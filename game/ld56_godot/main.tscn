@@ -14,12 +14,13 @@ size = Vector3(5, 10, 100)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_upsao"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xytw4"]
-albedo_color = Color(0.915158, 0.317052, 0.291724, 1)
-rim = 0.06
-rim_tint = 0.48
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86i4v"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+texture_filter = 0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x64le"]
+material = SubResource("StandardMaterial3D_86i4v")
 radius = 0.75
 height = 3.0
 
@@ -56,17 +57,16 @@ backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywnxh"]
 emission_enabled = true
-emission = Color(0.595243, 0.626554, 0.987919, 1)
+emission = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_c2mk7"]
 material = SubResource("StandardMaterial3D_ywnxh")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07ia1"]
 transparency = 1
-albedo_color = Color(0.427451, 0.423529, 0.968627, 1)
 albedo_texture = ExtResource("6_uyx0a")
 emission_enabled = true
-emission = Color(0.427451, 0.423529, 0.968627, 1)
+emission = Color(1, 1, 1, 1)
 texture_filter = 0
 disable_receive_shadows = true
 grow_amount = -0.496
@@ -147,7 +147,6 @@ shape = SubResource("CapsuleShape3D_upsao")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54507, 0)
-material_override = SubResource("StandardMaterial3D_xytw4")
 mesh = SubResource("CapsuleMesh_x64le")
 
 [node name="FlashLight" type="Node3D" parent="Player" node_paths=PackedStringArray("camera", "debugSphere")]
@@ -166,7 +165,6 @@ mesh = SubResource("CylinderMesh_i4xge")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Player/FlashLight"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-light_color = Color(0.988235, 0.8, 0.588235, 1)
 light_energy = 5.5
 spot_range = 6.65387
 spot_angle = 17.6315
@@ -314,7 +312,6 @@ mesh = SubResource("SphereMesh_c2mk7")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Lamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.98014, 0)
-light_color = Color(0.648735, 0.681007, 0.989854, 1)
 omni_range = 7.0
 
 [node name="cone" type="Node3D" parent="Lamp"]
