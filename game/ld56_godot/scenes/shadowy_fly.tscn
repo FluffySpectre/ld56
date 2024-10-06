@@ -17,6 +17,7 @@ frame_1/duration = 0.1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07luk"]
 transparency = 1
 albedo_texture = SubResource("AnimatedTexture_s0glm")
+emission = Color(1, 1, 1, 1)
 rim_enabled = true
 texture_filter = 0
 texture_repeat = false
