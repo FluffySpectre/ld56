@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dxy0e6ugwotg7"]
 
-[ext_resource type="Script" path="res://flying_enemy_controller.gd" id="1_7p2yb"]
+[ext_resource type="Script" path="res://scripts/flying_enemy_controller.gd" id="1_7p2yb"]
 [ext_resource type="Texture2D" uid="uid://ckovny5nm6vr" path="res://textures/shadowfly_1.png" id="2_525wu"]
 [ext_resource type="Texture2D" uid="uid://dw4pu2ob3lc74" path="res://textures/shadowfly_2.png" id="3_sftp8"]
 
@@ -16,7 +16,7 @@ frame_1/duration = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07luk"]
 transparency = 1
-albedo_color = Color(0.0195541, 0.0195541, 0.0195541, 1)
+albedo_color = Color(0.790084, 0.0994062, 0.0914669, 1)
 albedo_texture = SubResource("AnimatedTexture_s0glm")
 rim_enabled = true
 texture_filter = 0
