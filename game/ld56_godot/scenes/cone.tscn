@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqn72hexmnkyx"]
+
+[ext_resource type="PackedScene" uid="uid://cgnehvejnwoo7" path="res://meshes/cone.blend" id="1_get8s"]
+[ext_resource type="Material" uid="uid://trriwh02ncae" path="res://materials/flashlight_cone.tres" id="2_xc2ep"]
+
+[node name="cone" instance=ExtResource("1_get8s")]
+
+[node name="Cone" parent="." index="0"]
+material_override = ExtResource("2_xc2ep")
+cast_shadow = 0

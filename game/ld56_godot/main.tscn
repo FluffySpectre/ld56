@@ -1,0 +1,131 @@
+[gd_scene load_steps=15 format=3 uid="uid://dbmdkqxxeio4r"]
+
+[ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_x7t0t"]
+[ext_resource type="Script" path="res://scripts/flash_light.gd" id="3_qekst"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fapf7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_upsao"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xytw4"]
+albedo_color = Color(0.915158, 0.317052, 0.291724, 1)
+rim = 0.06
+rim_tint = 0.48
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x64le"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_i4xge"]
+
+[sub_resource type="Environment" id="Environment_0o4g1"]
+background_mode = 1
+background_color = Color(0.163539, 0.1996, 0.274227, 1)
+ambient_light_color = Color(0.609448, 0.828533, 0.842154, 1)
+tonemap_mode = 3
+glow_intensity = 6.95
+glow_bloom = 0.57
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 0.0
+glow_hdr_luminance_cap = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1oypq"]
+size = Vector3(1.5, 100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yp8yy"]
+albedo_color = Color(0.805909, 0, 0.172215, 1)
+emission_enabled = true
+emission = Color(0.868188, 0.002849, 0.174914, 1)
+backlight = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_l27tc"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="RigidBody3D" parent="."]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_x4gb1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(5, 0, 0, 0, 10, 0, 0, 0, 100, 0, -5, 0)
+mesh = SubResource("BoxMesh_fapf7")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 2.42, 0)
+script = ExtResource("1_jab5s")
+target = NodePath("../Player/CameraTarget")
+offset = Vector3(-10, 2.5, 0)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_x7t0t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0226, 0)
+shape = SubResource("CapsuleShape3D_upsao")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00655, 0)
+material_override = SubResource("StandardMaterial3D_xytw4")
+mesh = SubResource("CapsuleMesh_x64le")
+
+[node name="FlashLight" type="Node3D" parent="Player" node_paths=PackedStringArray("camera", "debugSphere")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.638892, 0.961707, 0)
+script = ExtResource("3_qekst")
+camera = NodePath("../../Camera3D")
+debugSphere = NodePath("../../DebugSphere")
+
+[node name="cone2" parent="Player/FlashLight" instance=ExtResource("1_gw4sq")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.33979e-07, 3.06509)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/FlashLight"]
+transform = Transform3D(0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -1.64592e-08, 0.376542)
+mesh = SubResource("CylinderMesh_i4xge")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player/FlashLight"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+light_color = Color(0.988235, 0.8, 0.588235, 1)
+light_energy = 5.5
+spot_range = 6.65387
+spot_angle = 17.6315
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player/FlashLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.628329)
+light_color = Color(0.98734, 0.799148, 0.588374, 1)
+light_energy = 0.2
+omni_range = 1.0
+
+[node name="CameraTarget" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0o4g1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.690529, 0.723305, 0, -0.723305, 0.690529, 0, 5.16962, 2.0906)
+visible = false
+light_energy = 0.079
+sky_mode = 1
+
+[node name="MouseDetectionPlane" type="Area3D" parent="."]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MouseDetectionPlane"]
+shape = SubResource("BoxShape3D_1oypq")
+
+[node name="DebugSphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.19707, 0)
+material_override = SubResource("StandardMaterial3D_yp8yy")
+mesh = SubResource("SphereMesh_l27tc")

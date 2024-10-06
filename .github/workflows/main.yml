@@ -7,47 +7,40 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+  export_web:
+    name: Export
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        targetPlatform:
-          - WebGL
-          - StandaloneWindows64
-          - StandaloneOSX
-          - StandaloneLinux64
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           lfs: true
-      
-      - uses: actions/cache@v4
+
+      - name: Build and export
+        id: export
+        uses: firebelley/godot-export@v5.2.1
         with:
-          path: game/LD56/Library
-          key: Library-${{ matrix.targetPlatform }}
-          restore-keys: Library-
-      
-      - uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz
+          relative_project_path: ./game/ld56_godot/
+          archive_output: true
+          use_preset_export_path: true
+          export_debug: false
+
+      - name: Upload web build to itch
+        uses: KikimoraGames/itch-publish@v0.0.3
         with:
-          targetPlatform: ${{ matrix.targetPlatform }}
-          projectPath: game/LD56
-      
-      # - uses: actions/upload-artifact@v4
+          butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
+          gameData: ./game/ld56_godot/bin/web/web.zip
+          itchUsername: ${{ secrets.ITCH_USER }}
+          itchGameId: ld56
+          buildChannel: html5
+
+      # - name: Upload windows build to itch
+      #   uses: KikimoraGames/itch-publish@v0.0.3
       #   with:
-      #     name: Build-${{ matrix.targetPlatform }}
-      #     path: build/${{ matrix.targetPlatform }}
-      
-      - uses: manleydev/butler-publish-itchio-action@master
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: ${{ matrix.targetPlatform }}
-          ITCH_GAME: ld56
-          ITCH_USER: ${{ secrets.ITCH_USER }}
-          PACKAGE: build/${{ matrix.targetPlatform }}
+      #     butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
+      #     gameData: ./game/ld56_godot/bin/win/win.zip
+      #     itchUsername: ${{ secrets.ITCH_USER }}
+      #     itchGameId: ld56
+      #     buildChannel: windows
