@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=27 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_sjkdj"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_x7t0t"]
 [ext_resource type="Script" path="res://scripts/flash_light.gd" id="3_qekst"]
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
@@ -62,6 +63,8 @@ emission = Color(1, 1, 1, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_c2mk7"]
 material = SubResource("StandardMaterial3D_ywnxh")
 
+[sub_resource type="BoxMesh" id="BoxMesh_smq2b"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07ia1"]
 transparency = 1
 albedo_texture = ExtResource("6_uyx0a")
@@ -109,6 +112,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_i2d7o")
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_sjkdj")
 
 [node name="Ground" type="RigidBody3D" parent="."]
 axis_lock_linear_x = true
@@ -166,6 +170,8 @@ mesh = SubResource("CylinderMesh_i4xge")
 [node name="SpotLight3D" type="SpotLight3D" parent="Player/FlashLight"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 light_energy = 5.5
+shadow_enabled = true
+shadow_blur = 0.0
 spot_range = 6.65387
 spot_angle = 17.6315
 
@@ -302,20 +308,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287392, 0, -15.7096)
 [node name="Model" type="Node3D" parent="Lamp"]
 
 [node name="LampBody" type="MeshInstance3D" parent="Lamp/Model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.65597, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.28452, 0)
 mesh = SubResource("BoxMesh_28x8k")
 skeleton = NodePath("../..")
 
 [node name="LampGlass" type="MeshInstance3D" parent="Lamp/Model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.27171, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.90026, 0)
 mesh = SubResource("SphereMesh_c2mk7")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lamp/Model"]
+transform = Transform3D(0.5, 0, 0, 0, 7, 0, 0, 0, 0.5, -0.698864, 2.53963, 0)
+mesh = SubResource("BoxMesh_smq2b")
+
 [node name="OmniLight3D" type="OmniLight3D" parent="Lamp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.98014, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.60869, 0)
+shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 7.0
 
 [node name="cone" type="Node3D" parent="Lamp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.47422, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10276, 0)
 
 [node name="Cone" type="MeshInstance3D" parent="Lamp/cone"]
 material_override = SubResource("StandardMaterial3D_07ia1")
@@ -324,4 +336,4 @@ mesh = SubResource("ArrayMesh_o1xxc")
 skeleton = NodePath("")
 
 [node name="Target" type="Node3D" parent="Lamp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.17693, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.80548, 0)
