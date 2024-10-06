@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=18 format=3 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -41,6 +41,28 @@ emission = Color(0.868188, 0.002849, 0.174914, 1)
 backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_l27tc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5fq2"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0253439, 0.000703501, 0.00138421, 1)
+billboard_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ln6pm"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 2.0
+linear_accel_max = 5.0
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+turbulence_enabled = true
+turbulence_noise_scale = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_si7ut"]
+size = Vector2(0.2, 0.2)
 
 [node name="Main" type="Node3D"]
 
@@ -106,8 +128,38 @@ light_color = Color(0.98734, 0.799148, 0.588374, 1)
 light_energy = 0.2
 omni_range = 1.0
 
+[node name="GPUParticlesAttractorBox3D" type="GPUParticlesAttractorBox3D" parent="Player/FlashLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20469, 4.73356)
+strength = -50.0
+attenuation = 0.0059208
+directionality = 1.0
+
+[node name="GPUParticlesAttractorBox3D2" type="GPUParticlesAttractorBox3D" parent="Player/FlashLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0193176, 0.101159, 2.69182)
+strength = -50.0
+attenuation = 0.0059208
+directionality = 1.0
+size = Vector3(1.4693, 1.79324, 2)
+
+[node name="GPUParticlesAttractorBox3D3" type="GPUParticlesAttractorBox3D" parent="Player/FlashLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0193176, 0.0185349, 1.11941)
+strength = -50.0
+attenuation = 0.0059208
+directionality = 1.0
+size = Vector3(1.4693, 1.05741, 1.04977)
+
 [node name="CameraTarget" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="OuterAttractor" type="GPUParticlesAttractorSphere3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09271, 0)
+strength = 5.0
+radius = 10.0
+
+[node name="InnerRepulsor" type="GPUParticlesAttractorSphere3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09271, 0)
+strength = -100.0
+radius = 1.25
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0o4g1")
@@ -129,3 +181,12 @@ shape = SubResource("BoxShape3D_1oypq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.19707, 0)
 material_override = SubResource("StandardMaterial3D_yp8yy")
 mesh = SubResource("SphereMesh_l27tc")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0.638892, 1.9858, -3.06509)
+material_override = SubResource("StandardMaterial3D_t5fq2")
+amount = 50
+lifetime = 3.0
+preprocess = 1.0
+process_material = SubResource("ParticleProcessMaterial_ln6pm")
+draw_pass_1 = SubResource("QuadMesh_si7ut")
