@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=32 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -39,11 +39,11 @@ background_energy_multiplier = 0.0
 ambient_light_source = 2
 ambient_light_color = Color(0.0453733, 0.17087, 0.194305, 1)
 ambient_light_energy = 0.0
-glow_intensity = 3.1
-glow_bloom = 0.78
+glow_intensity = 0.94
+glow_bloom = 0.32
 glow_hdr_threshold = 0.0
-glow_hdr_scale = 0.0
-glow_hdr_luminance_cap = 0.0
+glow_hdr_scale = 0.18
+glow_hdr_luminance_cap = 36.03
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1oypq"]
 size = Vector3(1, 100, 100)
@@ -56,7 +56,11 @@ backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_l27tc"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_220jp"]
+emission = Color(1, 1, 1, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_28x8k"]
+material = SubResource("StandardMaterial3D_220jp")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywnxh"]
 emission_enabled = true
@@ -64,6 +68,8 @@ emission = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_c2mk7"]
 material = SubResource("StandardMaterial3D_ywnxh")
+height = 0.5
+is_hemisphere = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_smq2b"]
 
@@ -332,7 +338,7 @@ mesh = SubResource("BoxMesh_28x8k")
 skeleton = NodePath("../..")
 
 [node name="LampGlass" type="MeshInstance3D" parent="Lamp/Model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.90026, 0)
+transform = Transform3D(-0.998335, 0.0576858, 0, -0.0576858, -0.998335, 0, 0, 0, 1, 0.00560682, 5.80323, 0)
 mesh = SubResource("SphereMesh_c2mk7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Lamp/Model"]
