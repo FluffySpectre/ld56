@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dw4pu2ob3lc74"
 path.s3tc="res://.godot/imported/shadowfly_2.png-a4cca1f19b43f42c45828e36f05dffa4.s3tc.ctex"
+path.etc2="res://.godot/imported/shadowfly_2.png-a4cca1f19b43f42c45828e36f05dffa4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/shadowfly_2.png"
-dest_files=["res://.godot/imported/shadowfly_2.png-a4cca1f19b43f42c45828e36f05dffa4.s3tc.ctex"]
+dest_files=["res://.godot/imported/shadowfly_2.png-a4cca1f19b43f42c45828e36f05dffa4.s3tc.ctex", "res://.godot/imported/shadowfly_2.png-a4cca1f19b43f42c45828e36f05dffa4.etc2.ctex"]
 
 [params]
 

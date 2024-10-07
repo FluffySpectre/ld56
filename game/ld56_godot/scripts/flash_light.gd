@@ -24,6 +24,12 @@ func on_body_exited(body: Node3D) -> void:
 		if body_index > -1:
 			bodies_in_light_cone.remove_at(body_index)
 
+func check_activation():
+	if Input.is_action_just_pressed("ToggleLight"):
+		area.get_child(0).disabled = !area.get_child(0).disabled
+		$cone2.visible = !$cone2.visible
+		$SpotLight3D.visible = !$SpotLight3D.visible
+
 func rotate_flashlight():
 	var space_state = get_world_3d().direct_space_state
 	var cam = camera
@@ -50,5 +56,6 @@ func repell_bodies():
 		b.apply_central_force(push_direction * push_force)
 
 func _physics_process(_delta):
+	check_activation()
 	rotate_flashlight()
-	repell_bodies()
+	#repell_bodies()

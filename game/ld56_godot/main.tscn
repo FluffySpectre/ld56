@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=37 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_x7t0t"]
 [ext_resource type="Script" path="res://scripts/flash_light.gd" id="3_qekst"]
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
+[ext_resource type="Script" path="res://light.gd" id="6_iaqkc"]
 [ext_resource type="Texture2D" uid="uid://un7mlyo0txai" path="res://textures/LightFalloff2.png" id="6_uyx0a"]
 [ext_resource type="Texture2D" uid="uid://cwrw2kxws7re0" path="res://textures/light_plate.png" id="7_fbx4a"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="10_ck0am"]
@@ -67,6 +68,7 @@ material = SubResource("StandardMaterial3D_220jp")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywnxh"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.69
 
 [sub_resource type="SphereMesh" id="SphereMesh_c2mk7"]
 material = SubResource("StandardMaterial3D_ywnxh")
@@ -89,8 +91,9 @@ material = SubResource("StandardMaterial3D_ykyrk")
 size = Vector2(5, 5)
 orientation = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07ia1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mq8f8"]
 transparency = 1
+albedo_color = Color(1, 1, 1, 0.168627)
 albedo_texture = ExtResource("6_uyx0a")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
@@ -135,6 +138,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_i2d7o")
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dusou"]
+points = PackedVector3Array(0.0993287, 2.53869, 0.178725, 0.337517, -2.38011, -1.40838, -0.455629, -2.38011, 1.3694, 1.29, -2.53869, -0.693817, -0.772941, -2.53869, -1.24959, -0.138044, 2.53869, -0.138044, 0.49631, -2.45965, 1.3694, -1.16992, -2.53869, 0.893018, 0.178725, 2.45965, -0.138044, 1.3694, -2.45965, 0.49631, -1.32871, -2.45965, -0.614421, -0.138044, 2.45965, 0.178725, -1.40838, -2.38011, 0.337517, 0.893018, -2.30107, 1.13121, 0.893018, -2.45965, -1.16992, 1.3694, -2.22154, -0.296836, -0.296836, -2.38011, -1.40838, -1.01113, -2.22154, -1.01113, -0.693817, -2.53869, 1.29, 0.178725, 2.53869, 0.0993287, -1.40838, -2.30107, -0.138044, 1.2106, -2.38011, 0.813622, 0.337517, -2.22154, 1.3694, -0.931734, -1.90389, 0.972414, 1.3694, -2.22154, 0.337517, -1.16992, -2.06296, 0.734226, 1.2106, -2.30107, -0.772941, -0.296836, -2.22154, 1.3694, -0.614421, -2.142, -1.24959, 0.575706, -2.06296, -1.24959, -1.32871, -2.53869, -0.614421, -0.772941, -2.30107, 1.2106)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_qidk7"]
 size = Vector3(3, 0.01, 100)
 
@@ -166,7 +172,7 @@ target = NodePath("../Player/CameraTarget")
 offset = Vector3(-15, 0, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.51048e-07, 0, -2.72779)
 axis_lock_linear_x = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -201,13 +207,6 @@ shadow_blur = 0.0
 spot_range = 5.90057
 spot_angle = 17.6315
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Player/FlashLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.628329)
-visible = false
-light_color = Color(0.98734, 0.799148, 0.588374, 1)
-light_energy = 0.2
-omni_range = 1.0
-
 [node name="EnemyRepeller" type="Area3D" parent="Player/FlashLight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.22966)
 collision_layer = 16384
@@ -215,19 +214,21 @@ collision_mask = 16388
 gravity_point_center = Vector3(0, 0, -10)
 gravity_direction = Vector3(0, 0, -10)
 gravity = 10.0
+script = ExtResource("6_iaqkc")
+is_player_flashlight = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/FlashLight/EnemyRepeller"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -9.12785e-08, -2.08821)
 shape = SubResource("ConvexPolygonShape3D_8txi6")
+
+[node name="FlockTarget" type="Node3D" parent="Player/FlashLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00657201, -0.01178, 3.8354)
 
 [node name="CameraTarget" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.515558, 4.17834, 0)
 
 [node name="AttackTarget" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.688693, 1.10728, 0.375698)
-
-[node name="FlockTarget" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.688693, 1.10728, 3.8354)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0o4g1")
@@ -334,7 +335,6 @@ target = NodePath("../Lamp/Target")
 
 [node name="Lamp" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287392, 0, -15.7096)
-visible = false
 
 [node name="Model" type="Node3D" parent="Lamp"]
 
@@ -353,6 +353,7 @@ mesh = SubResource("BoxMesh_smq2b")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Lamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.60869, 0)
+light_energy = 0.424
 shadow_enabled = true
 shadow_blur = 0.0
 omni_range = 6.1
@@ -366,7 +367,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10276, 0)
 
 [node name="Cone" type="MeshInstance3D" parent="Lamp/cone"]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -0.406734, 0)
-material_override = SubResource("StandardMaterial3D_07ia1")
+material_override = SubResource("StandardMaterial3D_mq8f8")
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_o1xxc")
 skeleton = NodePath("")
@@ -374,7 +375,21 @@ skeleton = NodePath("")
 [node name="Target" type="Node3D" parent="Lamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59835, 0)
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="LightArea" type="Area3D" parent="Lamp"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.547206, 2.39191e-08)
+collision_layer = 16384
+collision_mask = 16388
+gravity_point_center = Vector3(0, 0, -10)
+gravity_direction = Vector3(0, 0, -10)
+gravity = 10.0
+script = ExtResource("6_iaqkc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lamp/LightArea"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -9.12785e-08, -2.08821)
+shape = SubResource("ConvexPolygonShape3D_dusou")
+
+[node name="FlockTarget" type="Node3D" parent="Lamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.14331, 0)
 
 [node name="Environment" type="Node3D" parent="."]
 
