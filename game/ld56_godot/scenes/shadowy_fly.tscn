@@ -87,7 +87,9 @@ light_trigger_area = NodePath("../../LightDetectorArea")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="BlinkingGlow"]
 visible = false
+layers = 2
 light_energy = 0.25
+light_cull_mask = 4294967293
 omni_range = 0.5
 
 [node name="LightDetectorArea" type="Area3D" parent="."]

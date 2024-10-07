@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=40 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cmxj6n4rqd1aa" path="res://scenes/grass.tscn" id="10_ls30s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
-size = Vector3(5, 10, 100)
+size = Vector3(5, 10, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rnkn0"]
 
@@ -49,7 +49,7 @@ glow_hdr_scale = 0.18
 glow_hdr_luminance_cap = 36.03
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1oypq"]
-size = Vector3(1, 100, 100)
+size = Vector3(1, 100, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yp8yy"]
 albedo_color = Color(0.805909, 0, 0.172215, 1)
@@ -141,28 +141,35 @@ shadow_mesh = SubResource("ArrayMesh_i2d7o")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dusou"]
 points = PackedVector3Array(0.0993287, 2.53869, 0.178725, 0.337517, -2.38011, -1.40838, -0.455629, -2.38011, 1.3694, 1.29, -2.53869, -0.693817, -0.772941, -2.53869, -1.24959, -0.138044, 2.53869, -0.138044, 0.49631, -2.45965, 1.3694, -1.16992, -2.53869, 0.893018, 0.178725, 2.45965, -0.138044, 1.3694, -2.45965, 0.49631, -1.32871, -2.45965, -0.614421, -0.138044, 2.45965, 0.178725, -1.40838, -2.38011, 0.337517, 0.893018, -2.30107, 1.13121, 0.893018, -2.45965, -1.16992, 1.3694, -2.22154, -0.296836, -0.296836, -2.38011, -1.40838, -1.01113, -2.22154, -1.01113, -0.693817, -2.53869, 1.29, 0.178725, 2.53869, 0.0993287, -1.40838, -2.30107, -0.138044, 1.2106, -2.38011, 0.813622, 0.337517, -2.22154, 1.3694, -0.931734, -1.90389, 0.972414, 1.3694, -2.22154, 0.337517, -1.16992, -2.06296, 0.734226, 1.2106, -2.30107, -0.772941, -0.296836, -2.22154, 1.3694, -0.614421, -2.142, -1.24959, 0.575706, -2.06296, -1.24959, -1.32871, -2.53869, -0.614421, -0.772941, -2.30107, 1.2106)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wmuh"]
+size = Vector3(5, 20, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iovai"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_smgfy"]
+material = SubResource("StandardMaterial3D_iovai")
+size = Vector3(5, 20, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_qidk7"]
-size = Vector3(3, 0.01, 100)
+size = Vector3(3, 0.01, 200)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_sjkdj")
 
-[node name="Ground" type="RigidBody3D" parent="."]
+[node name="Ground" type="StaticBody3D" parent="."]
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-gravity_scale = 0.0
-freeze = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 shape = SubResource("BoxShape3D_x4gb1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(5, 0, 0, 0, 10, 0, 0, 0, 100, 0, -5, 0)
+transform = Transform3D(5, 0, 0, 0, 10, 0, 0, 0, 200, 0, -5, 0)
 mesh = SubResource("BoxMesh_fapf7")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
@@ -393,12 +400,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.14331, 0)
 
 [node name="Environment" type="Node3D" parent="."]
 
+[node name="Blocker" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("BoxShape3D_0wmuh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53325, 0)
+mesh = SubResource("BoxMesh_smgfy")
+
+[node name="Blocker2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Blocker2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("BoxShape3D_0wmuh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Blocker2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53325, 0)
+mesh = SubResource("BoxMesh_smgfy")
+
 [node name="GrassSpawner" type="Area3D" parent="." node_paths=PackedStringArray("spawn_container")]
 script = ExtResource("10_ck0am")
 spawn_list = Array[PackedScene]([ExtResource("10_ls30s")])
 autostart = true
 spawn_delay = 0.0
-max_spawned_objects = 300
+max_spawned_objects = 600
 spawn_container = NodePath("../Environment")
 one_shot_spawn = true
 
