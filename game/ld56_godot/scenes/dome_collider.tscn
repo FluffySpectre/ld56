@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkxpk7688obwo"]
+
+[ext_resource type="PackedScene" uid="uid://5u4ieomg44nb" path="res://meshes/dome_collider.blend" id="1_s0kad"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x46gt"]
+transparency = 1
+
+[node name="dome_collider" instance=ExtResource("1_s0kad")]
+
+[node name="Sphere" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_x46gt")

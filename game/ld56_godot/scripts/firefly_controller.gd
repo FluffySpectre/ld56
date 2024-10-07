@@ -18,6 +18,8 @@ func _ready() -> void:
 	
 	light_detector_area.area_entered.connect(on_light_area_entered)
 	light_detector_area.area_exited.connect(on_light_area_exited)
+	
+	add_to_group("fireflies")
 
 func on_light_area_entered(area: Area3D) -> void:
 	if area.is_in_group("player_light"):

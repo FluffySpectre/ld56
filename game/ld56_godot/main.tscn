@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=60 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -10,7 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://un7mlyo0txai" path="res://textures/LightFalloff2.png" id="6_uyx0a"]
 [ext_resource type="Texture2D" uid="uid://cwrw2kxws7re0" path="res://textures/light_plate.png" id="7_fbx4a"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="10_ck0am"]
+[ext_resource type="Script" path="res://scripts/flicker.gd" id="10_di11i"]
 [ext_resource type="PackedScene" uid="uid://cmxj6n4rqd1aa" path="res://scenes/grass.tscn" id="10_ls30s"]
+[ext_resource type="Texture2D" uid="uid://cnyxw65oehb7k" path="res://textures/sphere_fade.png" id="12_77hfi"]
+[ext_resource type="Script" path="res://scripts/the_sphere.gd" id="12_4071j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 200)
@@ -141,6 +144,35 @@ shadow_mesh = SubResource("ArrayMesh_i2d7o")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dusou"]
 points = PackedVector3Array(0.0993287, 2.53869, 0.178725, 0.337517, -2.38011, -1.40838, -0.455629, -2.38011, 1.3694, 1.29, -2.53869, -0.693817, -0.772941, -2.53869, -1.24959, -0.138044, 2.53869, -0.138044, 0.49631, -2.45965, 1.3694, -1.16992, -2.53869, 0.893018, 0.178725, 2.45965, -0.138044, 1.3694, -2.45965, 0.49631, -1.32871, -2.45965, -0.614421, -0.138044, 2.45965, 0.178725, -1.40838, -2.38011, 0.337517, 0.893018, -2.30107, 1.13121, 0.893018, -2.45965, -1.16992, 1.3694, -2.22154, -0.296836, -0.296836, -2.38011, -1.40838, -1.01113, -2.22154, -1.01113, -0.693817, -2.53869, 1.29, 0.178725, 2.53869, 0.0993287, -1.40838, -2.30107, -0.138044, 1.2106, -2.38011, 0.813622, 0.337517, -2.22154, 1.3694, -0.931734, -1.90389, 0.972414, 1.3694, -2.22154, 0.337517, -1.16992, -2.06296, 0.734226, 1.2106, -2.30107, -0.772941, -0.296836, -2.22154, 1.3694, -0.614421, -2.142, -1.24959, 0.575706, -2.06296, -1.24959, -1.32871, -2.53869, -0.614421, -0.772941, -2.30107, 1.2106)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ydydt"]
+emission_shape = 1
+emission_sphere_radius = 0.35
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(0, 1, 0)
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, -20, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qgcbw"]
+shading_mode = 0
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_7g5ua"]
+material = SubResource("StandardMaterial3D_qgcbw")
+size = Vector2(0.1, 0.3)
+orientation = 0
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_0wmuh"]
 size = Vector3(5, 20, 1)
 
@@ -153,8 +185,68 @@ size = Vector3(5, 20, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qidk7"]
 size = Vector3(3, 0.01, 200)
 
-[node name="Main" type="Node3D"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vy7u4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dxia0"]
+width = 256
+height = 256
+as_normal_map = true
+noise = SubResource("FastNoiseLite_vy7u4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2w1pl"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.156863)
+refraction_scale = 1.0
+refraction_texture = SubResource("NoiseTexture2D_dxia0")
+texture_filter = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_2xcuh"]
+material = SubResource("StandardMaterial3D_2w1pl")
+radius = 2.0
+height = 4.0
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yc6rb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kdgoj"]
+material = SubResource("StandardMaterial3D_yc6rb")
+size = Vector3(0.5, 5, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_veg64"]
+material = SubResource("StandardMaterial3D_yc6rb")
+size = Vector3(0.5, 0.5, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nd0r4"]
+radius = 1.861
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_16168"]
+radius = 4.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0fimi"]
+load_path = "res://.godot/imported/sphere_fade.png-046781eacd549310be6f69088616a568.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vtpp6"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qlar1"]
+material = SubResource("StandardMaterial3D_vtpp6")
+size = Vector3(0.25, 0.25, 89)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdy41"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e2bn8"]
+material = SubResource("StandardMaterial3D_tdy41")
+size = Vector3(0.25, 0.25, 89)
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("defectParticles", "lampFlicker", "lampLight")]
 script = ExtResource("1_sjkdj")
+defectParticles = NodePath("Lamp/DefectParticles")
+lampFlicker = NodePath("Lamp/Flicker")
+lampLight = NodePath("Lamp/OmniLight3D")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 axis_lock_linear_x = true
@@ -179,7 +271,7 @@ target = NodePath("../Player/CameraTarget")
 offset = Vector3(-15, 0, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.51048e-07, 0, -2.72779)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.28746e-06, 0, 25.1655)
 axis_lock_linear_x = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -261,92 +353,109 @@ material_override = SubResource("StandardMaterial3D_yp8yy")
 mesh = SubResource("SphereMesh_l27tc")
 
 [node name="ShadowyFly" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly7" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly8" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly9" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly10" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly11" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly12" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly13" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly14" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly15" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly16" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly17" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly18" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly19" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly20" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838882, 8.49765, -15.7252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
 target = NodePath("../Lamp/Target")
 
+[node name="ShadowyFly21_SphereRight" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0291924, 12.2763, -90.1717)
+target = NodePath("../TheSphere1/FlockTarget")
+
+[node name="ShadowyFly22_SphereRight" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0291924, 12.2763, -90.1717)
+target = NodePath("../TheSphere1/FlockTarget")
+
+[node name="ShadowyFly23_SphereLeft" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0345492, 12.2966, 90.4165)
+target = NodePath("../TheSphere2/FlockTarget")
+
+[node name="ShadowyFly24_SphereLeft" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0345492, 12.2966, 90.4165)
+target = NodePath("../TheSphere2/FlockTarget")
+
 [node name="Lamp" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287392, 0, -15.7096)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287, 0, 0)
 
 [node name="Model" type="Node3D" parent="Lamp"]
 
 [node name="LampBody" type="MeshInstance3D" parent="Lamp/Model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.28452, 0)
+visible = false
 mesh = SubResource("BoxMesh_28x8k")
 skeleton = NodePath("../..")
 
@@ -355,7 +464,7 @@ transform = Transform3D(-0.998335, 0.0576858, 0, -0.0576858, -0.998335, 0, 0, 0,
 mesh = SubResource("SphereMesh_c2mk7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Lamp/Model"]
-transform = Transform3D(0.5, 0, 0, 0, 7, 0, 0, 0, 0.5, -0.698864, 2.53963, 0)
+transform = Transform3D(0.5, 0, 0, 0, 7, 0, 0, 0, 0.5, -0.698864, 2.23427, -0.109114)
 mesh = SubResource("BoxMesh_smq2b")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Lamp"]
@@ -398,6 +507,21 @@ shape = SubResource("ConvexPolygonShape3D_dusou")
 [node name="FlockTarget" type="Node3D" parent="Lamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.14331, 0)
 
+[node name="Flicker" type="Node3D" parent="Lamp" node_paths=PackedStringArray("spotlight", "mesh_instance")]
+script = ExtResource("10_di11i")
+flicker_speed = 10.0
+min_intensity = 0.0
+max_intensity = 0.45
+spotlight = NodePath("../OmniLight3D")
+mesh_instance = NodePath("../cone/Cone")
+
+[node name="DefectParticles" type="GPUParticles3D" parent="Lamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.47393, 0)
+amount = 2
+explosiveness = 0.5
+process_material = SubResource("ParticleProcessMaterial_ydydt")
+draw_pass_1 = SubResource("QuadMesh_7g5ua")
+
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Blocker" type="StaticBody3D" parent="Environment"]
@@ -433,3 +557,133 @@ one_shot_spawn = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrassSpawner"]
 shape = SubResource("BoxShape3D_qidk7")
+
+[node name="TheSphere1" type="Area3D" parent="." node_paths=PackedStringArray("cable_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -90)
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("12_4071j")
+fireflies_to_activate = 8
+cable_mesh = NodePath("../CableRight/MeshInstance3D")
+
+[node name="Model" type="Node3D" parent="TheSphere1"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TheSphere1/Model"]
+mesh = SubResource("SphereMesh_2xcuh")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheSphere1/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.17077, 0)
+mesh = SubResource("BoxMesh_kdgoj")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="TheSphere1/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0671172, -5.91163, 1.02275)
+mesh = SubResource("BoxMesh_veg64")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="TheSphere1/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0671172, -5.91163, -1.09973)
+mesh = SubResource("BoxMesh_veg64")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheSphere1"]
+shape = SubResource("SphereShape3D_nd0r4")
+
+[node name="Sprite3D" type="Sprite3D" parent="TheSphere1"]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -0.400356, 0, 0)
+modulate = Color(1, 1, 1, 0.152941)
+axis = 0
+texture_filter = 0
+texture = ExtResource("12_77hfi")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="TheSphere1"]
+transform = Transform3D(1, 0, 0, 0, 0.00383968, 0.999993, 0, -0.999993, 0.00383968, 0, 4.98927, 0.0191573)
+spot_range = 12.7085
+spot_angle = 28.8684
+
+[node name="FlockTarget" type="Node3D" parent="TheSphere1"]
+
+[node name="LightArea" type="Area3D" parent="TheSphere1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+collision_layer = 16384
+collision_mask = 16388
+gravity_point_center = Vector3(0, 0, -10)
+gravity_direction = Vector3(0, 0, -10)
+gravity = 10.0
+script = ExtResource("6_iaqkc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheSphere1/LightArea"]
+shape = SubResource("SphereShape3D_16168")
+
+[node name="TheSphere2" type="Area3D" parent="." node_paths=PackedStringArray("cable_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 90)
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("12_4071j")
+fireflies_to_activate = 8
+cable_mesh = NodePath("../CableLeft/MeshInstance3D")
+
+[node name="Model" type="Node3D" parent="TheSphere2"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TheSphere2/Model"]
+mesh = SubResource("SphereMesh_2xcuh")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheSphere2/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.17077, 0)
+mesh = SubResource("BoxMesh_kdgoj")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="TheSphere2/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0671172, -5.91163, 1.02275)
+mesh = SubResource("BoxMesh_veg64")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="TheSphere2/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0671172, -5.91163, -1.09973)
+mesh = SubResource("BoxMesh_veg64")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheSphere2"]
+shape = SubResource("SphereShape3D_nd0r4")
+
+[node name="Sprite3D" type="Sprite3D" parent="TheSphere2"]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -0.400356, 0, 0)
+modulate = Color(1, 1, 1, 0.152941)
+axis = 0
+texture_filter = 0
+texture = SubResource("CompressedTexture2D_0fimi")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="TheSphere2"]
+transform = Transform3D(1, 0, 0, 0, 0.00383968, 0.999993, 0, -0.999993, 0.00383968, 0, 4.98927, 0.0191573)
+spot_range = 12.7085
+spot_angle = 28.8684
+
+[node name="FlockTarget" type="Node3D" parent="TheSphere2"]
+
+[node name="LightArea" type="Area3D" parent="TheSphere2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+collision_layer = 16384
+collision_mask = 16388
+gravity_point_center = Vector3(0, 0, -10)
+gravity_direction = Vector3(0, 0, -10)
+gravity = 10.0
+script = ExtResource("6_iaqkc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheSphere2/LightArea"]
+shape = SubResource("SphereShape3D_16168")
+
+[node name="CableRight" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CableRight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44.7312)
+visible = false
+mesh = SubResource("BoxMesh_qlar1")
+
+[node name="CableLeft" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CableLeft"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45.1264)
+visible = false
+mesh = SubResource("BoxMesh_e2bn8")
