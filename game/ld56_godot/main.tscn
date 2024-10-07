@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=35 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
 [ext_resource type="Texture2D" uid="uid://un7mlyo0txai" path="res://textures/LightFalloff2.png" id="6_uyx0a"]
 [ext_resource type="Texture2D" uid="uid://cwrw2kxws7re0" path="res://textures/light_plate.png" id="7_fbx4a"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="10_ck0am"]
+[ext_resource type="PackedScene" uid="uid://cmxj6n4rqd1aa" path="res://scenes/grass.tscn" id="10_ls30s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 100)
@@ -133,6 +135,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_i2d7o")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qidk7"]
+size = Vector3(3, 0.01, 100)
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_sjkdj")
 
@@ -206,7 +211,7 @@ omni_range = 1.0
 [node name="EnemyRepeller" type="Area3D" parent="Player/FlashLight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.22966)
 collision_layer = 16384
-collision_mask = 16384
+collision_mask = 16388
 gravity_point_center = Vector3(0, 0, -10)
 gravity_direction = Vector3(0, 0, -10)
 gravity = 10.0
@@ -329,6 +334,7 @@ target = NodePath("../Lamp/Target")
 
 [node name="Lamp" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287392, 0, -15.7096)
+visible = false
 
 [node name="Model" type="Node3D" parent="Lamp"]
 
@@ -367,3 +373,19 @@ skeleton = NodePath("")
 
 [node name="Target" type="Node3D" parent="Lamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59835, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="GrassSpawner" type="Area3D" parent="." node_paths=PackedStringArray("spawn_container")]
+script = ExtResource("10_ck0am")
+spawn_list = Array[PackedScene]([ExtResource("10_ls30s")])
+autostart = true
+spawn_delay = 0.0
+max_spawned_objects = 300
+spawn_container = NodePath("../Environment")
+one_shot_spawn = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrassSpawner"]
+shape = SubResource("BoxShape3D_qidk7")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmxj6n4rqd1aa"]
+
+[ext_resource type="Texture2D" uid="uid://c7r1ylqrh2ibn" path="res://textures/grass_1.png" id="1_mgf8k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2snv6"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("1_mgf8k")
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_ywepf"]
+material = SubResource("StandardMaterial3D_2snv6")
+size = Vector2(2, 2)
+orientation = 0
+
+[node name="Grass" type="Node3D"]
+
+[node name="Grass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00752, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_ywepf")
+skeleton = NodePath("../..")

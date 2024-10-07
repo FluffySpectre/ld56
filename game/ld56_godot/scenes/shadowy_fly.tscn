@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxy0e6ugwotg7"]
+[gd_scene load_steps=14 format=3 uid="uid://dxy0e6ugwotg7"]
 
 [ext_resource type="Script" path="res://scripts/flying_enemy_controller.gd" id="1_7p2yb"]
 [ext_resource type="Texture2D" uid="uid://ckovny5nm6vr" path="res://textures/shadowfly_1.png" id="2_525wu"]
 [ext_resource type="Texture2D" uid="uid://dw4pu2ob3lc74" path="res://textures/shadowfly_2.png" id="3_sftp8"]
+[ext_resource type="Script" path="res://scripts/blinking_glow.gd" id="4_7k6u8"]
+[ext_resource type="Script" path="res://scripts/invisible_in_light.gd" id="5_ep8y2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tnwb5"]
 radius = 0.2
@@ -27,21 +29,30 @@ material = SubResource("StandardMaterial3D_07luk")
 size = Vector2(0.4, 0.4)
 orientation = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fa0s7"]
-albedo_color = Color(1, 1, 1, 0.52549)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apoos"]
+transparency = 1
+shading_mode = 0
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tnxk"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.0901961)
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 16.0
 texture_filter = 0
 
-[sub_resource type="SphereMesh" id="SphereMesh_esjxr"]
-material = SubResource("StandardMaterial3D_fa0s7")
-radius = 0.05
-height = 0.1
+[sub_resource type="SphereMesh" id="SphereMesh_jliid"]
+material = SubResource("StandardMaterial3D_7tnxk")
+radius = 0.15
+height = 0.3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fke5j"]
+radius = 0.25
 
 [node name="ShadowyFly" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21494, -5.27964)
-collision_layer = 16384
+collision_layer = 4
 collision_mask = 16384
 axis_lock_linear_x = true
 axis_lock_angular_x = true
@@ -60,6 +71,23 @@ shape = SubResource("SphereShape3D_tnwb5")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_5edoh")
 
-[node name="GlowSphere" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.072571, 0)
-mesh = SubResource("SphereMesh_esjxr")
+[node name="BlinkingGlow" type="Node3D" parent="."]
+script = ExtResource("4_7k6u8")
+pulse_speed = 5.0
+min_alpha = 0.1
+max_alpha = 0.75
+
+[node name="GlowSphere" type="MeshInstance3D" parent="BlinkingGlow" node_paths=PackedStringArray("light_trigger_area")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.125831, 0)
+material_override = SubResource("StandardMaterial3D_apoos")
+mesh = SubResource("SphereMesh_jliid")
+skeleton = NodePath("../..")
+script = ExtResource("5_ep8y2")
+light_trigger_area = NodePath("../../LightTriggerArea")
+
+[node name="LightTriggerArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 16384
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightTriggerArea"]
+shape = SubResource("SphereShape3D_fke5j")
