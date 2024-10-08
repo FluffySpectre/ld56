@@ -13,6 +13,10 @@ var bodies_in_light_cone: Array
 func _ready() -> void:
 	area.body_entered.connect(on_body_entered)
 	area.body_exited.connect(on_body_exited)
+	
+	area.get_child(0).disabled = !area.get_child(0).disabled
+	$cone2.visible = !$cone2.visible
+	$SpotLight3D.visible = !$SpotLight3D.visible
 
 func on_body_entered(body: Node3D) -> void:
 	if body is RigidBody3D:
