@@ -52,7 +52,7 @@ func on_sphere_powered():
 		# kick off the little ending sequence
 		toggle_ending_trigger(true)
 		
-		defectParticles.amount = 8
+		defectParticles.amount = 15
 		defectParticles.emitting = true
 		
 		lampFlicker.flicker_speed = 10
@@ -63,26 +63,26 @@ func on_sphere_powered():
 		
 	elif theSphereRight.is_powered || theSphereLeft.is_powered:
 		toggle_ending_trigger(false)
-		defectParticles.amount = 2
+		defectParticles.amount = 5
 		defectParticles.emitting = true
 		lampFlicker.enable_flicker = true
 		lampFlicker.flicker_speed = 5
-		lampFlicker.sprite_tex = null
+		lampFlicker.sprite_tex = lamp_ultrashine
 		lampLight.light_energy = 1.5
-		lamp_ultrashine.visible = false
+		lamp_ultrashine.visible = true
 
 func on_sphere_power_lost():
 	print("Sphere lost power!")
 	
 	if theSphereRight.is_powered || theSphereLeft.is_powered:
 		toggle_ending_trigger(false)
-		defectParticles.amount = 2
+		defectParticles.amount = 5
 		defectParticles.emitting = true
 		lampFlicker.enable_flicker = true
 		lampFlicker.flicker_speed = 5
-		lampFlicker.sprite_tex = null
+		lampFlicker.sprite_tex = lamp_ultrashine
 		lampLight.light_energy = 1.5
-		lamp_ultrashine.visible = false
+		lamp_ultrashine.visible = true
 	else:
 		toggle_ending_trigger(false)
 		defectParticles.emitting = false
