@@ -8,6 +8,7 @@ class_name Flicker extends Node3D
 # Referenzen zu den Nodes
 @export var spotlight : Light3D
 @export var mesh_instance : MeshInstance3D
+@export var sprite_tex : Sprite3D
 
 # Lokale Variablen
 var time : float = 0.0
@@ -46,6 +47,9 @@ func _process(delta):
 	# Anwendung der Intensität auf das Spotlight
 	var light_intensity = lerp(min_intensity, max_intensity, current_intensity)
 	spotlight.light_energy = light_intensity
+
+	if sprite_tex:
+		sprite_tex.modulate.a = lerp(min_intensity, max_intensity, current_intensity)
 
 	# Umschalten der Sichtbarkeit der MeshInstance3D basierend auf der Intensität
 	if current_intensity > 0.5:

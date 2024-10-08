@@ -20,11 +20,18 @@ func on_body_entered(body: Node3D):
 	if !body.is_in_group("fireflies"):
 		return
 	num_fireflies += 1
+	
+	# HACK: reduce jitter to keep the firefly from leaving the light area
+	body.jitter_intensity = 4.0
+	
 	#print("New firefly! Count: " + str(num_fireflies))
 
 func on_body_exited(body: Node3D):
 	if !body.is_in_group("fireflies"):
 		return
+	
+	# HACK: reset the jitter again
+	body.jitter_intensity = 8.0
 	
 	num_fireflies -= 1
 	if (num_fireflies < 0):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=67 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -14,6 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://cmxj6n4rqd1aa" path="res://scenes/grass.tscn" id="10_ls30s"]
 [ext_resource type="Texture2D" uid="uid://cnyxw65oehb7k" path="res://textures/sphere_fade.png" id="12_77hfi"]
 [ext_resource type="Script" path="res://scripts/the_sphere.gd" id="12_4071j"]
+[ext_resource type="Texture2D" uid="uid://bapq53fkaxsa8" path="res://textures/white.png" id="15_nyr2n"]
+[ext_resource type="Script" path="res://scripts/power_indicator.gd" id="15_rk3v0"]
+[ext_resource type="FontFile" uid="uid://cncbcdep2jpwx" path="res://font/Silkscreen-Regular.ttf" id="17_n7xnx"]
+[ext_resource type="Script" path="res://scripts/story.gd" id="18_xx55a"]
+[ext_resource type="Script" path="res://scripts/ending.gd" id="19_xf7ca"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 200)
@@ -242,11 +247,20 @@ emission = Color(1, 1, 1, 1)
 material = SubResource("StandardMaterial3D_tdy41")
 size = Vector3(0.25, 0.25, 89)
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("defectParticles", "lampFlicker", "lampLight")]
+[sub_resource type="Theme" id="Theme_oqf7g"]
+default_font = ExtResource("17_n7xnx")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wn2rk"]
+size = Vector3(5, 10, 25)
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("defectParticles", "lampFlicker", "lampLight", "endingTriggerArea", "story", "lamp_ultrashine")]
 script = ExtResource("1_sjkdj")
 defectParticles = NodePath("Lamp/DefectParticles")
 lampFlicker = NodePath("Lamp/Flicker")
 lampLight = NodePath("Lamp/OmniLight3D")
+endingTriggerArea = NodePath("EndingTriggerArea")
+story = NodePath("UI/StoryText")
+lamp_ultrashine = NodePath("Lamp/LampUltrashine")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 axis_lock_linear_x = true
@@ -522,6 +536,11 @@ explosiveness = 0.5
 process_material = SubResource("ParticleProcessMaterial_ydydt")
 draw_pass_1 = SubResource("QuadMesh_7g5ua")
 
+[node name="LampUltrashine" type="Sprite3D" parent="Lamp"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.677001, 5.49874, 0)
+axis = 0
+texture = ExtResource("12_77hfi")
+
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Blocker" type="StaticBody3D" parent="Environment"]
@@ -616,6 +635,50 @@ script = ExtResource("6_iaqkc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TheSphere1/LightArea"]
 shape = SubResource("SphereShape3D_16168")
 
+[node name="PowerIndicator" type="Node3D" parent="TheSphere1"]
+script = ExtResource("15_rk3v0")
+
+[node name="Level1" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -4.78713, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level2" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -4.44042, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level3" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -4.09014, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level4" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -3.74957, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level5" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -3.41573, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level6" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -3.09208, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level7" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -2.77392, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level8" type="Sprite3D" parent="TheSphere1/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -2.45027, 0)
+modulate = Color(0.374139, 0.374139, 0.374139, 1)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
 [node name="TheSphere2" type="Area3D" parent="." node_paths=PackedStringArray("cable_mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 90)
 collision_layer = 5
@@ -674,6 +737,50 @@ script = ExtResource("6_iaqkc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TheSphere2/LightArea"]
 shape = SubResource("SphereShape3D_16168")
 
+[node name="PowerIndicator" type="Node3D" parent="TheSphere2"]
+script = ExtResource("15_rk3v0")
+
+[node name="Level1" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -4.78713, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level2" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -4.44042, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level3" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -4.09014, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level4" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -3.74957, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level5" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -3.41573, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level6" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -3.09208, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level7" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -2.77392, 0)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
+[node name="Level8" type="Sprite3D" parent="TheSphere2/PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5, 0.260949, -2.45027, 0)
+modulate = Color(0.374139, 0.374139, 0.374139, 1)
+axis = 0
+texture = ExtResource("15_nyr2n")
+
 [node name="CableRight" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CableRight"]
@@ -687,3 +794,63 @@ mesh = SubResource("BoxMesh_qlar1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45.1264)
 visible = false
 mesh = SubResource("BoxMesh_e2bn8")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StoryText" type="Label" parent="UI"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 4.25
+anchor_right = 6.025
+anchor_bottom = 5.975
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_oqf7g")
+text = "Where am I
+And what do I have 
+in my hand ?!a"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("18_xx55a")
+text_duration = 3.0
+intro_texts = Array[String](["Where am I ?!", "Left Mouse = Flashlight"])
+ending_texts = Array[String](["Complete darkness...", "My favorite.", "Thanks for playing!"])
+metadata/_edit_use_anchors_ = true
+
+[node name="BlackBox" type="ColorRect" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+color = Color(0, 0, 0, 1)
+
+[node name="EndingTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("camera_controller", "ending_camera_target", "camera_target", "story", "player", "explosion_sprite", "blackscreen_sprite")]
+script = ExtResource("19_xf7ca")
+camera_controller = NodePath("../Camera3D")
+ending_camera_target = NodePath("../EndingCameraTarget")
+camera_target = NodePath("../Player/CameraTarget")
+story = NodePath("../UI/StoryText")
+player = NodePath("../Player")
+explosion_sprite = NodePath("../LampExplosion")
+blackscreen_sprite = NodePath("../UI/BlackBox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EndingTriggerArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0898943, 5.13444, -0.0889854)
+shape = SubResource("BoxShape3D_wn2rk")
+
+[node name="EndingCameraTarget" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.5, 5, 0)
+
+[node name="LampExplosion" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.19393, 5.49874, 0)
+visible = false
+axis = 0
+texture = ExtResource("7_fbx4a")

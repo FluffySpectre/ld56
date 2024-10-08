@@ -2,11 +2,11 @@ class_name FireflyController extends RigidBody3D
 
 @export var target: Node3D
 @export var light_sense_radius: float = 10.0
+@export var jitter_intensity: float = 8.0
 
 @onready var light_detector_area: Area3D = $LightDetectorArea
 
 const SPEED = 1
-const JITTER_INTENSITY = 8.0
 
 var initial_target: Node3D
 var is_attracted_to_player_light: bool = false
@@ -56,8 +56,8 @@ func _physics_process(delta: float) -> void:
 
 		var jitter = Vector3(
 			0.0,
-			randf_range(-JITTER_INTENSITY, JITTER_INTENSITY),
-			randf_range(-JITTER_INTENSITY, JITTER_INTENSITY)
+			randf_range(-jitter_intensity, jitter_intensity),
+			randf_range(-jitter_intensity, jitter_intensity)
 		)
 		direction += jitter
 
