@@ -828,7 +828,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="EndingTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("camera_controller", "ending_camera_target", "camera_target", "story", "player", "explosion_sprite", "blackscreen_sprite")]
+[node name="EndingTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("camera_controller", "ending_camera_target", "camera_target", "story", "player", "explosion_sprite", "blackscreen_sprite", "lamp_target", "screen_target", "lamp", "flashlight")]
 script = ExtResource("19_xf7ca")
 camera_controller = NodePath("../Camera3D")
 ending_camera_target = NodePath("../EndingCameraTarget")
@@ -837,6 +837,10 @@ story = NodePath("../UI/StoryText")
 player = NodePath("../Player")
 explosion_sprite = NodePath("../LampExplosion")
 blackscreen_sprite = NodePath("../UI/BlackBox")
+lamp_target = NodePath("../Lamp/FlockTarget")
+screen_target = NodePath("../EndingTarget")
+lamp = NodePath("../Lamp")
+flashlight = NodePath("../Player/FlashLight")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EndingTriggerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0898943, 5.13444, -0.0889854)
@@ -846,10 +850,10 @@ shape = SubResource("BoxShape3D_wn2rk")
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.5, 5, 0)
 
 [node name="EndingTarget" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 5, 0)
 
 [node name="LampExplosion" type="Sprite3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.19393, 5.49874, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3.405, 5.49874, 0)
 visible = false
 axis = 0
 texture = ExtResource("7_fbx4a")

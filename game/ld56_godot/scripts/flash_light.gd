@@ -9,6 +9,7 @@ const RAY_LENGTH = 1000
 @onready var area: Area3D = $EnemyRepeller
 
 var bodies_in_light_cone: Array
+var flashlight_on = false
 
 func _ready() -> void:
 	area.body_entered.connect(on_body_entered)
@@ -28,11 +29,15 @@ func on_body_exited(body: Node3D) -> void:
 		if body_index > -1:
 			bodies_in_light_cone.remove_at(body_index)
 
+func toggle_flashlight(toggle: bool):
+	area.get_child(0).disabled = !toggle
+	$cone2.visible = toggle
+	$SpotLight3D.visible = toggle
+	flashlight_on = toggle
+
 func check_activation():
 	if Input.is_action_just_pressed("ToggleLight"):
-		area.get_child(0).disabled = !area.get_child(0).disabled
-		$cone2.visible = !$cone2.visible
-		$SpotLight3D.visible = !$SpotLight3D.visible
+		toggle_flashlight(!flashlight_on)
 
 func rotate_flashlight():
 	var space_state = get_world_3d().direct_space_state

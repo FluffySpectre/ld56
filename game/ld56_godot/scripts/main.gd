@@ -3,7 +3,7 @@ extends Node3D
 @export var defectParticles: GPUParticles3D
 @export var lampFlicker: Flicker
 @export var lampLight: Light3D
-@export var endingTriggerArea: Area3D
+@export var endingTriggerArea: Ending
 @export var story: Story
 @export var lamp_ultrashine: Sprite3D
 
@@ -39,6 +39,9 @@ func _ready() -> void:
 	story.play_intro()
 
 func toggle_ending_trigger(state: bool):
+	if state == false && endingTriggerArea.has_started():
+		return
+	
 	end_sequence_trigger_active = state
 	if state:
 		endingTriggerArea.process_mode = Node.PROCESS_MODE_INHERIT
