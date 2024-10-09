@@ -76,7 +76,7 @@ material = SubResource("StandardMaterial3D_220jp")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywnxh"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.69
+emission_energy_multiplier = 0.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_c2mk7"]
 material = SubResource("StandardMaterial3D_ywnxh")
@@ -90,7 +90,7 @@ transparency = 1
 albedo_color = Color(1, 1, 1, 0.490196)
 albedo_texture = ExtResource("7_fbx4a")
 emission_enabled = true
-emission = Color(0.235732, 0.235732, 0.235732, 1)
+emission = Color(0.393086, 0.393086, 0.393085, 1)
 emission_energy_multiplier = 0.63
 texture_filter = 0
 
@@ -101,7 +101,7 @@ orientation = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mq8f8"]
 transparency = 1
-albedo_color = Color(1, 1, 1, 0.168627)
+albedo_color = Color(1, 1, 1, 0.443137)
 albedo_texture = ExtResource("6_uyx0a")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
