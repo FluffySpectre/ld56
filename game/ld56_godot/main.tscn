@@ -845,6 +845,9 @@ shape = SubResource("BoxShape3D_wn2rk")
 [node name="EndingCameraTarget" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.5, 5, 0)
 
+[node name="EndingTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
 [node name="LampExplosion" type="Sprite3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.19393, 5.49874, 0)
 visible = false
