@@ -344,12 +344,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.688693, 1.10728, 0.375698)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0o4g1")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.690529, 0.723305, 0, -0.723305, 0.690529, 0, 5.16962, 2.0906)
-visible = false
-light_energy = 0.079
-sky_mode = 1
-
 [node name="MouseDetectionPlane" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.201244, 0, 0)
 collision_layer = 2
@@ -795,20 +789,21 @@ visible = false
 mesh = SubResource("BoxMesh_e2bn8")
 
 [node name="UI" type="Control" parent="."]
-visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="StoryText" type="Label" parent="UI"]
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.025
-anchor_top = 4.25
-anchor_right = 6.025
-anchor_bottom = 5.975
+anchor_top = 0.95
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -69.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_oqf7g")
@@ -825,11 +820,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BlackBox" type="ColorRect" parent="UI"]
 visible = false
-layout_mode = 0
-offset_left = -1000.0
-offset_top = -1000.0
-offset_right = 1000.0
-offset_bottom = 1000.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="EndingTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("camera_controller", "ending_camera_target", "camera_target", "story", "player", "explosion_sprite", "blackscreen_sprite")]
