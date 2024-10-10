@@ -33,6 +33,17 @@ func _process(delta: float) -> void:
 		text_timer = 0.0
 		text = texts_to_display[current_text_index]
 
+func play_custom(story_texts: Array[String]):
+	if is_playing:
+		stop_story()
+		
+	texts_to_display = story_texts
+	text = texts_to_display[0]
+	text_timer = 0.0
+	current_text_index = 0
+	is_playing = true
+	is_playing_ending = false
+
 func play_intro():
 	texts_to_display = intro_texts
 	text = texts_to_display[0]

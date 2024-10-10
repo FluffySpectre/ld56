@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=69 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -19,6 +19,7 @@
 [ext_resource type="FontFile" uid="uid://cncbcdep2jpwx" path="res://font/Silkscreen-Regular.ttf" id="17_n7xnx"]
 [ext_resource type="Script" path="res://scripts/story.gd" id="18_xx55a"]
 [ext_resource type="Script" path="res://scripts/ending.gd" id="19_xf7ca"]
+[ext_resource type="Script" path="res://scripts/story_trigger_area.gd" id="20_d2wk5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 200)
@@ -247,9 +248,13 @@ size = Vector3(0.25, 0.25, 89)
 
 [sub_resource type="Theme" id="Theme_oqf7g"]
 default_font = ExtResource("17_n7xnx")
+Label/constants/line_spacing = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wn2rk"]
 size = Vector3(5, 10, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3kecy"]
+size = Vector3(5, 5, 4)
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("defectParticles", "lampFlicker", "lampLight", "endingTriggerArea", "story", "lamp_ultrashine")]
 script = ExtResource("1_sjkdj")
@@ -800,7 +805,7 @@ grow_vertical = 2
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.95
+anchor_top = 1.03594
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -69.0
@@ -808,10 +813,10 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_oqf7g")
 text = "Where am I
-And what do I have 
-in my hand ?!a"
+And is that a flashlight?"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 script = ExtResource("18_xx55a")
 text_duration = 3.0
 intro_texts = Array[String](["Where am I ?!", "Left Mouse = Flashlight"])
@@ -857,3 +862,12 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3.405, 5.49874, 0)
 visible = false
 axis = 0
 texture = ExtResource("7_fbx4a")
+
+[node name="LampHintTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("story")]
+script = ExtResource("20_d2wk5")
+story_texts = Array[String](["Poor fireflies, trapped by the light", "Maybe there’s a way to turn it off…"])
+story = NodePath("../UI/StoryText")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LampHintTriggerArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58823, 5.8781)
+shape = SubResource("BoxShape3D_3kecy")
