@@ -1,10 +1,11 @@
-[gd_scene load_steps=69 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=70 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_sjkdj"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_x7t0t"]
 [ext_resource type="Script" path="res://scripts/flash_light.gd" id="3_qekst"]
+[ext_resource type="AudioStream" uid="uid://jr7gnmu404vp" path="res://sfx/click.mp3" id="5_6g1l5"]
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
 [ext_resource type="Script" path="res://scripts/light.gd" id="6_iaqkc"]
 [ext_resource type="Texture2D" uid="uid://un7mlyo0txai" path="res://textures/LightFalloff2.png" id="6_uyx0a"]
@@ -184,7 +185,7 @@ size = Vector3(5, 20, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_smgfy"]
 material = SubResource("StandardMaterial3D_iovai")
-size = Vector3(5, 20, 1)
+size = Vector3(5, 20, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qidk7"]
 size = Vector3(3, 0.01, 200)
@@ -248,6 +249,7 @@ size = Vector3(0.25, 0.25, 89)
 
 [sub_resource type="Theme" id="Theme_oqf7g"]
 default_font = ExtResource("17_n7xnx")
+default_font_size = 12
 Label/constants/line_spacing = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wn2rk"]
@@ -307,6 +309,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.695265, 1.11906, 0)
 script = ExtResource("3_qekst")
 camera = NodePath("../../Camera3D")
 debugSphere = NodePath("../../DebugSphere")
+toggle_sfx = ExtResource("5_6g1l5")
 push_force = 3.0
 
 [node name="cone2" parent="Player/FlashLight" instance=ExtResource("1_gw4sq")]
@@ -549,7 +552,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 shape = SubResource("BoxShape3D_0wmuh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Blocker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53325, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53325, 7.09888)
 mesh = SubResource("BoxMesh_smgfy")
 
 [node name="Blocker2" type="StaticBody3D" parent="Environment"]
@@ -560,7 +563,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 shape = SubResource("BoxShape3D_0wmuh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Blocker2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53325, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.53325, -7.01112)
 mesh = SubResource("BoxMesh_smgfy")
 
 [node name="GrassSpawner" type="Area3D" parent="." node_paths=PackedStringArray("spawn_container")]
@@ -805,7 +808,7 @@ grow_vertical = 2
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.03594
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -69.0

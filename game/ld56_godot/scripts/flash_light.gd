@@ -2,6 +2,7 @@ class_name FlashLight extends Node3D
 
 @export var camera: Camera3D
 @export var debugSphere: Node3D
+@export var toggle_sfx: AudioStream
 
 const RAY_LENGTH = 1000
 
@@ -38,6 +39,8 @@ func toggle_flashlight(toggle: bool):
 func check_activation():
 	if Input.is_action_just_pressed("ToggleLight"):
 		toggle_flashlight(!flashlight_on)
+		AudioManagerInstance.stream = toggle_sfx
+		AudioManagerInstance.play()
 
 func rotate_flashlight():
 	var space_state = get_world_3d().direct_space_state
