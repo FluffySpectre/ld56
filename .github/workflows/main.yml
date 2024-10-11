@@ -6,41 +6,45 @@ on:
       - main
   workflow_dispatch: {}
 
-jobs:
-  export_web:
-    name: Export
-    runs-on: ubuntu-latest
+env:
+  GODOT_VERSION: 4.3
+  EXPORT_NAME: LD56
+  PROJECT_PATH: game/ld56_godot
 
+jobs:
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:master
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           lfs: true
-
-      - name: Build and export
-        id: export
-        uses: FluffySpectre/godot-export@master
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "HTML5" ../build/web/index.html
+      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
         with:
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.2.1-stable/Godot_v4.2.1-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.2.1-stable/Godot_v4.2.1-stable_export_templates.tpz
-          relative_project_path: ./game/ld56_godot/
-          archive_output: true
-          use_preset_export_path: true
-          export_debug: false
+          name: web
+          path: build/web
 
-      # - name: Upload web build to itch
-      #   uses: KikimoraGames/itch-publish@v0.0.3
-      #   with:
-      #     butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
-      #     gameData: ./game/ld56_godot/bin/web/web.zip
-      #     itchUsername: ${{ secrets.ITCH_USER }}
-      #     itchGameId: ld56
-      #     buildChannel: html5
-
-      # - name: Upload windows build to itch
-      #   uses: KikimoraGames/itch-publish@v0.0.3
-      #   with:
-      #     butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
-      #     gameData: ./game/ld56_godot/bin/win/win.zip
-      #     itchUsername: ${{ secrets.ITCH_USER }}
-      #     itchGameId: ld56
-      #     buildChannel: windows
+      # - name: Butler Upload
+      #   uses: manleydev/butler-publish-itchio-action@master
+      #   env:
+      #     BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+      #     CHANNEL: web
+      #     ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+      #     ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+      #     PACKAGE: build/web
