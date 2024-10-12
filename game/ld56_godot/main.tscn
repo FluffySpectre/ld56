@@ -823,7 +823,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 script = ExtResource("18_xx55a")
 text_duration = 3.0
-intro_texts = Array[String](["Where am I ?!", "Left Mouse = Flashlight"])
+intro_texts = Array[String](["Where am I ?!", "Left Mouse = Toggle Flashlight", "A/D or Arrows = Move"])
 ending_texts = Array[String](["Complete darkness.", "My favorite.", "Thanks for playing!"])
 metadata/_edit_use_anchors_ = true
 
