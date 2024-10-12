@@ -12,11 +12,14 @@ extends Node3D
 
 var lampLightDefaultIntensity
 var end_sequence_trigger_active = false
+var runs_in_webbrowser = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if !OS.has_feature("editor"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
+	runs_in_webbrowser = OS.has_feature("web")
 	
 	# setup
 	theSphereRight.on_powered.connect(on_sphere_powered)
@@ -96,5 +99,5 @@ func on_sphere_power_lost():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("Escape"):
+	if !runs_in_webbrowser && Input.is_action_just_pressed("Escape"):
 		get_tree().quit()
