@@ -808,7 +808,7 @@ grow_vertical = 2
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
+anchor_top = 1.03281
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -69.0
@@ -868,7 +868,7 @@ texture = ExtResource("7_fbx4a")
 
 [node name="LampHintTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("story")]
 script = ExtResource("20_d2wk5")
-story_texts = Array[String](["Poor fireflies, trapped by the light", "There’s got to be a way to help them…"])
+story_texts = Array[String](["Poor fireflies, caught in the streetlight's glow.", "There has to be a way to help them..."])
 story = NodePath("../UI/StoryText")
 block_player_input = false
 
