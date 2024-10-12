@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 		new_parent = get_parent()
 		return
 	
-	if !is_attracted_to_player_light && get_parent() == Player.instance.get_node("FlashLight"):
+	if !is_attracted_to_player_light && get_parent().name == "FlashLight":
 		new_parent = get_tree().root.get_node("Main")
 		target = initial_target
 		return
