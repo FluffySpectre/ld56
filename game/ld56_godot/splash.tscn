@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://774ic06057vb"]
+[gd_scene load_steps=7 format=3 uid="uid://774ic06057vb"]
 
 [ext_resource type="FontFile" uid="uid://cncbcdep2jpwx" path="res://font/Silkscreen-Regular.ttf" id="1_b2qum"]
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="2_rf22q"]
 [ext_resource type="Script" path="res://scripts/goto_scene_trigger.gd" id="3_8hfdf"]
+[ext_resource type="Script" path="res://scripts/light_flicker.gd" id="3_y13ur"]
 
 [sub_resource type="Environment" id="Environment_j7apc"]
 background_mode = 1
@@ -44,10 +45,20 @@ collision_mask = 1
 target = NodePath("../FireflyTarget")
 jitter_intensity = 4.0
 
+[node name="MeshInstance3D" parent="ShadowyFly" index="1"]
+transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, 0, 0, 0)
+
+[node name="BlinkingGlow" parent="ShadowyFly" index="2"]
+random_pulse_start = false
+
+[node name="GlowSphere" parent="ShadowyFly/BlinkingGlow" index="0"]
+transform = Transform3D(-2.88495e-08, 0, -0.66, 0, 0.66, 0, 0.66, 0, -2.88495e-08, 0, -0.0851067, 0)
+
 [node name="OmniLight3D" type="OmniLight3D" parent="ShadowyFly"]
 light_energy = 13.528
 light_cull_mask = 4293918736
 omni_range = 4.0
+script = ExtResource("3_y13ur")
 
 [node name="FireflyTarget" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.1931)
@@ -55,3 +66,5 @@ script = ExtResource("3_8hfdf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FireflyTarget"]
 shape = SubResource("BoxShape3D_lv435")
+
+[editable path="ShadowyFly"]
