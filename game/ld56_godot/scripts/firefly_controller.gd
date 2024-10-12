@@ -35,20 +35,25 @@ func on_light_area_exited(area: Area3D) -> void:
 	if area.is_in_group("player_light"):
 		is_attracted_to_player_light = false
 		target = initial_target
-		new_parent = get_tree().root
+		new_parent = get_tree().root.get_node("Main")
 	
 	elif area.is_in_group("light") && !is_attracted_to_player_light:
 		target = initial_target
-		new_parent = get_tree().root
+		new_parent = get_tree().root.get_node("Main")
 
-func _process(_delta: float) -> void:
-	# do reparenting in normal process
-	# godot doesnt like those kind of operations in physics process functions
+func _physics_process(delta: float) -> void:
+	# do reparenting in normal physics process
+	# godot doesnt like those kind of operations in area_entered/area_exited
 	if new_parent != get_parent():
 		reparent(new_parent)
 		new_parent = get_parent()
-
-func _physics_process(delta: float) -> void:
+		return
+	
+	if !is_attracted_to_player_light && get_parent() == Player.instance.get_node("FlashLight"):
+		new_parent = get_tree().root.get_node("Main")
+		target = initial_target
+		return
+	
 	var direction: Vector3 = Vector3.ZERO
 
 	if target:
@@ -63,5 +68,5 @@ func _physics_process(delta: float) -> void:
 
 		apply_central_force(direction * SPEED)
 	
-		# Keep the firefly upright
+		# keep the firefly upright
 		global_rotation_degrees = Vector3(0, 0, 0)
