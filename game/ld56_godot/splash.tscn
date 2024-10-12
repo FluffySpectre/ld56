@@ -17,7 +17,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0,
 environment = SubResource("Environment_j7apc")
 
 [node name="TitleLabel3D" type="Label3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, 1, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, 0.75, 0)
 layers = 17
 shaded = true
 texture_filter = 0
@@ -27,12 +27,11 @@ font_size = 192
 outline_size = 0
 
 [node name="SubtitleLabel3D" type="Label3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, -1, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, -0.75, 0)
 layers = 17
 shaded = true
 texture_filter = 0
-text = "A game by Björn Bosse
-for Ludum Dare 56"
+text = "Created by Björn Bosse"
 font = ExtResource("1_b2qum")
 font_size = 128
 outline_size = 0
