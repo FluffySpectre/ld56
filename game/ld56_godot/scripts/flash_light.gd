@@ -62,12 +62,9 @@ func rotate_flashlight():
 		direction *= -1
 		global_transform.basis = Basis.looking_at(direction, Vector3.LEFT)
 
-func repell_bodies():
-	var push_direction = global_transform.basis.z.normalized()
-	for b in bodies_in_light_cone:
-		b.apply_central_force(push_direction * push_force)
-
 func _physics_process(_delta):
+	if get_parent().input_disabled:
+		return
+	
 	check_activation()
 	rotate_flashlight()
-	#repell_bodies()

@@ -11,6 +11,7 @@ var current_text_index: int = 0
 var is_playing_ending = false
 
 signal ending_stopped
+signal story_stopped
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,4 +68,5 @@ func stop_story():
 	current_text_index = 0
 	is_playing = false
 	is_playing_ending = false
+	story_stopped.emit()
 	print("Stop story")

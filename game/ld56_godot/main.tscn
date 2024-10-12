@@ -868,8 +868,9 @@ texture = ExtResource("7_fbx4a")
 
 [node name="LampHintTriggerArea" type="Area3D" parent="." node_paths=PackedStringArray("story")]
 script = ExtResource("20_d2wk5")
-story_texts = Array[String](["Poor fireflies, trapped by the light", "Maybe there’s a way to turn it off…"])
+story_texts = Array[String](["Poor fireflies, trapped by the light", "There’s got to be a way to help them…"])
 story = NodePath("../UI/StoryText")
+block_player_input = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LampHintTriggerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58823, 5.8781)

@@ -50,8 +50,7 @@ func on_ending_stopped():
 
 func play_ending():
 	current_state = EndingState.BEFORE_EXPLOSION
-	player.input_disabled = true
-	player.stop_movement()
+	player.can_be_controlled(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
