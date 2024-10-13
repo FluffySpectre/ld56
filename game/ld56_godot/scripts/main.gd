@@ -1,8 +1,12 @@
 extends Node3D
 
+@export var initial_stutter_playthrough: InitialStutterPlaythrough
+@export var fade_in: FadeIn
 @export var defectParticles: GPUParticles3D
 @export var lampFlicker: Flicker
 @export var lampLight: Light3D
+@export var intro_trigger_area: Area3D
+@export var lamp_hint_trigger_area: Area3D
 @export var endingTriggerArea: Ending
 @export var lamp_ultrashine: Sprite3D
 
@@ -26,6 +30,19 @@ func _ready() -> void:
 	theSphereLeft.on_powered.connect(on_sphere_powered)
 	theSphereLeft.on_power_lost.connect(on_sphere_power_lost)
 	
+	toggle_ending_trigger(false)
+	toggle_intro_trigger(false)
+	toggle_lamp_hint_trigger(false)
+	
+	initial_stutter_playthrough.playthrough_complete.connect(on_playthrough_complete)
+	initial_stutter_playthrough.start()
+	
+	#fade_in.start()
+
+func on_playthrough_complete():
+	finish_init()
+
+func finish_init():
 	defectParticles.amount = 2
 	defectParticles.emitting = false
 	
@@ -35,7 +52,22 @@ func _ready() -> void:
 	lampLightDefaultIntensity = lampLight.light_energy
 	lamp_ultrashine.visible = false
 	
-	toggle_ending_trigger(false)
+	toggle_intro_trigger(true)
+	toggle_lamp_hint_trigger(true)
+	
+	fade_in.start()
+
+func toggle_lamp_hint_trigger(state: bool):
+	if state:
+		lamp_hint_trigger_area.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		lamp_hint_trigger_area.process_mode = Node.PROCESS_MODE_DISABLED
+
+func toggle_intro_trigger(state: bool):
+	if state:
+		intro_trigger_area.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		intro_trigger_area.process_mode = Node.PROCESS_MODE_DISABLED
 
 func toggle_ending_trigger(state: bool):
 	if state == false && endingTriggerArea.has_started():
