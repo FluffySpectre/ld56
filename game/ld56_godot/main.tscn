@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=78 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -23,6 +23,8 @@
 [ext_resource type="Script" path="res://scripts/ending.gd" id="19_xf7ca"]
 [ext_resource type="Script" path="res://scripts/story_trigger_area.gd" id="20_d2wk5"]
 [ext_resource type="Script" path="res://scripts/fade_in.gd" id="20_lgc6x"]
+[ext_resource type="Script" path="res://scripts/light_flicker.gd" id="24_fymfn"]
+[ext_resource type="Script" path="res://scripts/goto_scene_trigger.gd" id="25_mwya2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 200)
@@ -267,10 +269,15 @@ Label/constants/line_spacing = 0
 default_font = ExtResource("17_n7xnx")
 default_font_size = 12
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("initial_stutter_playthrough", "fade_in", "defectParticles", "lampFlicker", "lampLight", "intro_trigger_area", "lamp_hint_trigger_area", "endingTriggerArea", "lamp_ultrashine")]
+[sub_resource type="Environment" id="Environment_j7apc"]
+background_mode = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lv435"]
+size = Vector3(21.541, 23.583, 5.13436)
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("initial_stutter_playthrough", "defectParticles", "lampFlicker", "lampLight", "intro_trigger_area", "lamp_hint_trigger_area", "endingTriggerArea", "lamp_ultrashine")]
 script = ExtResource("1_sjkdj")
 initial_stutter_playthrough = NodePath("InitialStutterPlaythrough")
-fade_in = NodePath("UI/FadeIn")
 defectParticles = NodePath("Lamp/DefectParticles")
 lampFlicker = NodePath("Lamp/Flicker")
 lampLight = NodePath("Lamp/OmniLight3D")
@@ -865,6 +872,7 @@ axis = 0
 texture = ExtResource("7_fbx4a")
 
 [node name="UI" type="Control" parent="."]
+visibility_layer = 524288
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -873,6 +881,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="StoryText" type="Label" parent="UI"]
+visibility_layer = 524288
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -924,3 +933,66 @@ theme = SubResource("Theme_huvfx")
 text = "Loading..."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Splash" type="Node3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -61.9983, 0)
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="Splash"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 0)
+cull_mask = 524287
+environment = SubResource("Environment_j7apc")
+current = true
+
+[node name="TitleLabel3D" type="Label3D" parent="Splash"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, 0.75, 0)
+layers = 17
+shaded = true
+texture_filter = 0
+text = "A Flicker In The Dark"
+font = ExtResource("17_n7xnx")
+font_size = 192
+outline_size = 0
+
+[node name="SubtitleLabel3D" type="Label3D" parent="Splash"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, -0.75, 0)
+layers = 17
+shaded = true
+texture_filter = 0
+text = "Created by Björn Bosse"
+font = ExtResource("17_n7xnx")
+font_size = 128
+outline_size = 0
+line_spacing = -32.0
+
+[node name="ShadowyFly" parent="Splash" node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+collision_layer = 1
+collision_mask = 1
+target = NodePath("../FireflyTarget")
+jitter_intensity = 4.0
+
+[node name="MeshInstance3D" parent="Splash/ShadowyFly" index="1"]
+transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, 0, 0, 0)
+
+[node name="BlinkingGlow" parent="Splash/ShadowyFly" index="2"]
+random_pulse_start = false
+
+[node name="GlowSphere" parent="Splash/ShadowyFly/BlinkingGlow" index="0"]
+transform = Transform3D(-2.88495e-08, 0, -0.66, 0, 0.66, 0, 0.66, 0, -2.88495e-08, 0, -0.0851067, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Splash/ShadowyFly"]
+light_energy = 13.528
+light_cull_mask = 4293918736
+omni_range = 4.0
+script = ExtResource("24_fymfn")
+
+[node name="FireflyTarget" type="Area3D" parent="Splash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.1931)
+script = ExtResource("25_mwya2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Splash/FireflyTarget"]
+shape = SubResource("BoxShape3D_lv435")
+
+[editable path="Splash/ShadowyFly"]

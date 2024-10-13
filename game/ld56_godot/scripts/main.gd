@@ -1,7 +1,6 @@
-extends Node3D
+class_name Main extends Node3D
 
 @export var initial_stutter_playthrough: InitialStutterPlaythrough
-@export var fade_in: FadeIn
 @export var defectParticles: GPUParticles3D
 @export var lampFlicker: Flicker
 @export var lampLight: Light3D
@@ -13,12 +12,16 @@ extends Node3D
 @onready var theSphereRight: TheSphere = $TheSphere1
 @onready var theSphereLeft: TheSphere = $TheSphere2
 
+static var instance: Main
+
 var lampLightDefaultIntensity
 var end_sequence_trigger_active = false
 var runs_in_webbrowser = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	instance = self
+	
 	if !OS.has_feature("editor"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
@@ -41,6 +44,23 @@ func _ready() -> void:
 
 func on_playthrough_complete():
 	finish_init()
+	ScreenFade.instance.fade_in()
+
+func splash_complete():
+	toggle_intro_trigger(true)
+	toggle_lamp_hint_trigger(true)
+	
+	# reset all fireflies
+	var fireflies = get_tree().get_nodes_in_group("fireflies")
+	for f in fireflies:
+		f.reset_to_initial_position()
+	
+	var main_cam: Camera3D = $Camera3D
+	main_cam.current = true
+	
+	$Splash.queue_free()
+	
+	ScreenFade.instance.fade_in()
 
 func finish_init():
 	defectParticles.amount = 2
@@ -52,10 +72,13 @@ func finish_init():
 	lampLightDefaultIntensity = lampLight.light_energy
 	lamp_ultrashine.visible = false
 	
-	toggle_intro_trigger(true)
-	toggle_lamp_hint_trigger(true)
+	var main_cam: Camera3D = $Camera3D
+	main_cam.current = false
 	
-	fade_in.start()
+	$Splash.process_mode = Node.PROCESS_MODE_INHERIT
+	$Splash.visible = true
+	var splash_cam: Camera3D = $Splash/Camera3D
+	splash_cam.current = true
 
 func toggle_lamp_hint_trigger(state: bool):
 	if state:
