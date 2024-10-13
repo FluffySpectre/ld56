@@ -1,9 +1,9 @@
 class_name Ending extends Area3D
 
+@export var ending_texts: Array[String]
 @export var camera_controller: CameraController
 @export var ending_camera_target: Node3D
 @export var camera_target: Node3D
-@export var story: Story
 @export var player: Player
 @export var explosion_sprite: Sprite3D
 @export var blackscreen_sprite: ColorRect
@@ -35,7 +35,6 @@ func has_started():
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	body_entered.connect(on_body_entered)
-	story.ending_stopped.connect(on_ending_stopped)
 	
 	blackscreen_sprite.visible = false
 
@@ -168,7 +167,8 @@ func _process(delta: float) -> void:
 			blackscreen_sprite.visible = true
 
 		if state_timer > 2.0:
-			story.play_ending()
+			Story.instance.story_stopped.connect(on_ending_stopped, CONNECT_ONE_SHOT)
+			Story.instance.play_custom(ending_texts)
 			
 			current_state = EndingState.COMPLETE
 			state_changed = true

@@ -4,7 +4,6 @@ extends Node3D
 @export var lampFlicker: Flicker
 @export var lampLight: Light3D
 @export var endingTriggerArea: Ending
-@export var story: Story
 @export var lamp_ultrashine: Sprite3D
 
 @onready var theSphereRight: TheSphere = $TheSphere1
@@ -37,9 +36,6 @@ func _ready() -> void:
 	lamp_ultrashine.visible = false
 	
 	toggle_ending_trigger(false)
-	
-	# kickoff the intro
-	story.play_intro()
 
 func toggle_ending_trigger(state: bool):
 	if state == false && endingTriggerArea.has_started():
