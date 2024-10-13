@@ -61,6 +61,8 @@ func on_fadeout_after_splash():
 	$Splash.queue_free()
 
 func splash_complete():
+	Player.instance.can_be_controlled(true)
+	
 	ScreenFade.instance.fade_out_complete.connect(on_fadeout_after_splash, CONNECT_ONE_SHOT)
 	ScreenFade.instance.display_loading_text = false
 	ScreenFade.instance.fade_out_in()
@@ -82,6 +84,8 @@ func finish_init():
 	$Splash.visible = true
 	var splash_cam: Camera3D = $Splash/Camera3D
 	splash_cam.current = true
+	
+	Player.instance.can_be_controlled(false)
 
 func toggle_lamp_hint_trigger(state: bool):
 	if state:
