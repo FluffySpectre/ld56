@@ -24,7 +24,7 @@ func on_body_entered(body: Node3D):
 	# HACK: reduce jitter to keep the firefly from leaving the light area
 	body.jitter_intensity = 4.0
 	
-	#print("New firefly! Count: " + str(num_fireflies))
+	update_light_state()
 
 func on_body_exited(body: Node3D):
 	if !body.is_in_group("fireflies"):
@@ -37,7 +37,7 @@ func on_body_exited(body: Node3D):
 	if (num_fireflies < 0):
 		num_fireflies = 0
 	
-	#dprint("Firefly gone! Count: " + str(num_fireflies))
+	update_light_state()
 
 func update_light_state():
 	var activation_perc = float(num_fireflies) / fireflies_to_activate
@@ -53,7 +53,3 @@ func update_light_state():
 		cable_mesh.visible = false
 		is_powered = false
 		on_power_lost.emit()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	update_light_state()
