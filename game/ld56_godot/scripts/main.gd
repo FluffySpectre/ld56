@@ -40,13 +40,13 @@ func _ready() -> void:
 	initial_stutter_playthrough.playthrough_complete.connect(on_playthrough_complete)
 	initial_stutter_playthrough.start()
 	
-	#fade_in.start()
+	#ScreenFade.instance.fade_in()
 
 func on_playthrough_complete():
 	finish_init()
 	ScreenFade.instance.fade_in()
 
-func splash_complete():
+func on_fadeout_after_splash():
 	toggle_intro_trigger(true)
 	toggle_lamp_hint_trigger(true)
 	
@@ -59,8 +59,11 @@ func splash_complete():
 	main_cam.current = true
 	
 	$Splash.queue_free()
-	
-	ScreenFade.instance.fade_in()
+
+func splash_complete():
+	ScreenFade.instance.fade_out_complete.connect(on_fadeout_after_splash, CONNECT_ONE_SHOT)
+	ScreenFade.instance.display_loading_text = false
+	ScreenFade.instance.fade_out_in()
 
 func finish_init():
 	defectParticles.amount = 2

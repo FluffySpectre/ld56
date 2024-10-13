@@ -22,7 +22,7 @@
 [ext_resource type="Script" path="res://scripts/story.gd" id="18_xx55a"]
 [ext_resource type="Script" path="res://scripts/ending.gd" id="19_xf7ca"]
 [ext_resource type="Script" path="res://scripts/story_trigger_area.gd" id="20_d2wk5"]
-[ext_resource type="Script" path="res://scripts/fade_in.gd" id="20_lgc6x"]
+[ext_resource type="Script" path="res://scripts/screen_fade.gd" id="20_lgc6x"]
 [ext_resource type="Script" path="res://scripts/light_flicker.gd" id="24_fymfn"]
 [ext_resource type="Script" path="res://scripts/goto_scene_trigger.gd" id="25_mwya2"]
 
@@ -308,6 +308,7 @@ mesh = SubResource("BoxMesh_fapf7")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 2.42, 25.166)
+current = true
 script = ExtResource("1_jab5s")
 target = NodePath("../Player/CameraTarget")
 offset = Vector3(-15, 0, 0)
@@ -943,7 +944,6 @@ visible = false
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 0)
 cull_mask = 524287
 environment = SubResource("Environment_j7apc")
-current = true
 
 [node name="TitleLabel3D" type="Label3D" parent="Splash"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.877, 0.75, 0)
