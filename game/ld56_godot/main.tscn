@@ -314,7 +314,7 @@ target = NodePath("../Player/CameraTarget")
 offset = Vector3(-15, 0, 0)
 
 [node name="PlayerSpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25.166)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45.2293)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.51982e-06, 0, 96.4554)
@@ -394,7 +394,7 @@ material_override = SubResource("StandardMaterial3D_yp8yy")
 mesh = SubResource("SphereMesh_l27tc")
 
 [node name="ShadowyFly" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, 38.0893)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, 58.1526)
 target = NodePath("../Lamp/Target")
 
 [node name="ShadowyFly2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
@@ -824,7 +824,7 @@ visible = false
 mesh = SubResource("BoxMesh_e2bn8")
 
 [node name="IntroTriggerArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25.0122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45.0755)
 script = ExtResource("20_d2wk5")
 story_texts = Array[String](["Where am I ?!", "Left Mouse = Toggle Flashlight", "A/D or Arrows = Move"])
 block_player_input = false
