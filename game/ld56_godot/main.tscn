@@ -192,7 +192,7 @@ material = SubResource("StandardMaterial3D_iovai")
 size = Vector3(5, 20, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qidk7"]
-size = Vector3(3, 0.01, 200)
+size = Vector3(5, 0.01, 200)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vy7u4"]
 
