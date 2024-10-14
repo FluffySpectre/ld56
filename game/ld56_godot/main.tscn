@@ -396,6 +396,7 @@ mesh = SubResource("SphereMesh_l27tc")
 [node name="ShadowyFly" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, 58.1526)
 target = NodePath("../Lamp/Target")
+jitter_intensity = 3.0
 
 [node name="ShadowyFly2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_iilbq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14414, 4.54123, -1.17075)
