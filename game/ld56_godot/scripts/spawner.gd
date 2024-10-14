@@ -44,11 +44,13 @@ func spawn():
 	# select a random scene from the spawn list
 	var to_spawn = spawn_list[randi() % spawn_list.size()]
 	
-	var instance = to_spawn.instantiate()
+	var instance: Node3D = to_spawn.instantiate()
 	spawn_container.add_child(instance)
 	
 	instance.global_position = get_random_point_in_spawnarea()
 	instance.global_rotation = global_rotation
+	if randi_range(0, 1) == 0:
+		instance.scale.z *= -1 
 
 	spawned_objects += 1
 
