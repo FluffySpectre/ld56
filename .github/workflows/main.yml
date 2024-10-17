@@ -4,43 +4,53 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: {}
 
 env:
   GODOT_VERSION: 4.3
-  EXPORT_NAME: LD56
+  #EXPORT_NAME: LD56
   PROJECT_PATH: game/ld56_godot
 
 jobs:
-  export-web:
+  export_game:
+    runs-on: ubuntu-latest
     name: Web Export
-    runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: true
-      
-      - name: Setup
+
+      - name: Download Godot
         run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-      
-      - name: Web Build
+          wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip -O godot.zip
+          unzip godot.zip -d ~/godot
+          chmod +x ~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64
+
+      - name: Download Godot export templates
         run: |
-          mkdir -v -p build/web
-          cd $PROJECT_PATH
-          godot godot --headless --verbose --import --export-release "HTML5" ../build/web/index.html
-      
+          wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz -O ${GODOT_VERSION}.stable.tpz
+          mkdir -p ~/.local/share/godot/export_templates
+          unzip -o ${GODOT_VERSION}.stable.tpz -d ~/.local/share/godot/export_templates
+          # Rename the extracted folder to the expected version name
+          mv ~/.local/share/godot/export_templates/templates ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable || { echo "Error: Could not rename templates folder."; exit 1; }
+
+      - name: Prepare output directory
+        run: |
+          mkdir -p ./build/web
+
+      - name: Export game
+        run: |
+          ~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --path $PROJECT_PATH --export-release "web" ../build/web/index.html
+        env:
+          #GITHUB_TOKEN: ${{ secrets.GH_KEY }}
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: web
           path: build/web
 
-      # - name: Butler Upload
+      # - name: Upload to itch.io
       #   uses: manleydev/butler-publish-itchio-action@master
       #   env:
       #     BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
