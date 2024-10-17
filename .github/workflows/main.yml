@@ -41,7 +41,7 @@ jobs:
       - name: Export game
         run: |
           ~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --path $PROJECT_PATH --export-release "web" ../build/web/index.html
-        env:
+        #env:
           #GITHUB_TOKEN: ${{ secrets.GH_KEY }}
 
       - name: Upload Artifact
