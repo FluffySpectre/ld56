@@ -1,30 +1,30 @@
-[gd_scene load_steps=78 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=77 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
-[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_jab5s"]
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_sjkdj"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_x7t0t"]
-[ext_resource type="Script" path="res://scripts/initial_stutter_playthrough.gd" id="2_oiqcv"]
-[ext_resource type="Script" path="res://scripts/flash_light.gd" id="3_qekst"]
+[ext_resource type="Script" uid="uid://5gxcvu4a3iy1" path="res://scripts/camera_controller.gd" id="1_jab5s"]
+[ext_resource type="Script" uid="uid://cesjw50kl8e25" path="res://scripts/main.gd" id="1_sjkdj"]
+[ext_resource type="Script" uid="uid://c1aeock7e2lo6" path="res://scripts/player.gd" id="1_x7t0t"]
+[ext_resource type="Script" uid="uid://c3apluvowbl1t" path="res://scripts/initial_stutter_playthrough.gd" id="2_oiqcv"]
+[ext_resource type="Script" uid="uid://b6c5lv5kmgya8" path="res://scripts/flash_light.gd" id="3_qekst"]
 [ext_resource type="AudioStream" uid="uid://jr7gnmu404vp" path="res://sfx/click.mp3" id="5_6g1l5"]
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
-[ext_resource type="Script" path="res://scripts/light.gd" id="6_iaqkc"]
-[ext_resource type="Texture2D" uid="uid://un7mlyo0txai" path="res://textures/LightFalloff2.png" id="6_uyx0a"]
+[ext_resource type="Script" uid="uid://k3n27hr1ay2w" path="res://scripts/light.gd" id="6_iaqkc"]
 [ext_resource type="Texture2D" uid="uid://cwrw2kxws7re0" path="res://textures/light_plate.png" id="7_fbx4a"]
-[ext_resource type="Script" path="res://scripts/spawner.gd" id="10_ck0am"]
-[ext_resource type="Script" path="res://scripts/flicker.gd" id="10_di11i"]
+[ext_resource type="Script" uid="uid://cql7rorv6ccb7" path="res://scripts/spawner.gd" id="10_ck0am"]
+[ext_resource type="Script" uid="uid://cqvmdjvj6mdpf" path="res://scripts/flicker.gd" id="10_di11i"]
 [ext_resource type="PackedScene" uid="uid://cmxj6n4rqd1aa" path="res://scenes/grass.tscn" id="10_ls30s"]
+[ext_resource type="Material" uid="uid://trriwh02ncae" path="res://materials/flashlight_cone.tres" id="11_0odxb"]
 [ext_resource type="Texture2D" uid="uid://cnyxw65oehb7k" path="res://textures/sphere_fade.png" id="12_77hfi"]
-[ext_resource type="Script" path="res://scripts/the_sphere.gd" id="12_4071j"]
+[ext_resource type="Script" uid="uid://b31f1u78kw2sy" path="res://scripts/the_sphere.gd" id="12_4071j"]
 [ext_resource type="Texture2D" uid="uid://bapq53fkaxsa8" path="res://textures/white.png" id="15_nyr2n"]
-[ext_resource type="Script" path="res://scripts/power_indicator.gd" id="15_rk3v0"]
+[ext_resource type="Script" uid="uid://chy0t3jc1blc0" path="res://scripts/power_indicator.gd" id="15_rk3v0"]
 [ext_resource type="FontFile" uid="uid://cncbcdep2jpwx" path="res://font/Silkscreen-Regular.ttf" id="17_n7xnx"]
-[ext_resource type="Script" path="res://scripts/story.gd" id="18_xx55a"]
-[ext_resource type="Script" path="res://scripts/ending.gd" id="19_xf7ca"]
-[ext_resource type="Script" path="res://scripts/story_trigger_area.gd" id="20_d2wk5"]
-[ext_resource type="Script" path="res://scripts/screen_fade.gd" id="20_lgc6x"]
-[ext_resource type="Script" path="res://scripts/light_flicker.gd" id="24_fymfn"]
-[ext_resource type="Script" path="res://scripts/goto_scene_trigger.gd" id="25_mwya2"]
+[ext_resource type="Script" uid="uid://cni8if23ecj44" path="res://scripts/story.gd" id="18_xx55a"]
+[ext_resource type="Script" uid="uid://d1prk307g5bs7" path="res://scripts/ending.gd" id="19_xf7ca"]
+[ext_resource type="Script" uid="uid://uu43rkg6qawb" path="res://scripts/story_trigger_area.gd" id="20_d2wk5"]
+[ext_resource type="Script" uid="uid://dv7tegkvb1cf7" path="res://scripts/screen_fade.gd" id="20_lgc6x"]
+[ext_resource type="Script" uid="uid://yt1pvfqvx11b" path="res://scripts/light_flicker.gd" id="24_fymfn"]
+[ext_resource type="Script" uid="uid://drtv0pjvruaft" path="res://scripts/goto_scene_trigger.gd" id="25_mwya2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 200)
@@ -104,16 +104,6 @@ texture_filter = 0
 material = SubResource("StandardMaterial3D_ykyrk")
 size = Vector2(5, 5)
 orientation = 1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mq8f8"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.443137)
-albedo_texture = ExtResource("6_uyx0a")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-texture_filter = 0
-disable_receive_shadows = true
-grow_amount = -0.496
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yl1b8"]
 resource_name = "Material.001"
@@ -199,8 +189,8 @@ size = Vector3(5, 0.01, 200)
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dxia0"]
 width = 256
 height = 256
-as_normal_map = true
 noise = SubResource("FastNoiseLite_vy7u4")
+as_normal_map = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2w1pl"]
 transparency = 1
@@ -525,10 +515,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10276, 0)
 
 [node name="Cone" type="MeshInstance3D" parent="Lamp/cone"]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -0.406734, 0)
-material_override = SubResource("StandardMaterial3D_mq8f8")
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_o1xxc")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_0odxb")
 
 [node name="Target" type="Node3D" parent="Lamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59835, 0)

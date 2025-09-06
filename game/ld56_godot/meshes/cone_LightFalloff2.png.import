@@ -2,18 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://un7mlyo0txai"
-path.s3tc="res://.godot/imported/LightFalloff2.png-0688692b16fd58fc3e5d9105c0e2af17.s3tc.ctex"
-path.etc2="res://.godot/imported/LightFalloff2.png-0688692b16fd58fc3e5d9105c0e2af17.etc2.ctex"
+uid="uid://cuygxp5coc2cm"
+path.s3tc="res://.godot/imported/cone_LightFalloff2.png-a5c19232681709ed98c9272a73f014ff.s3tc.ctex"
+path.etc2="res://.godot/imported/cone_LightFalloff2.png-a5c19232681709ed98c9272a73f014ff.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "d1d45b6b88287354dbf12acd256aae7a"
+}
 
 [deps]
 
-source_file="res://textures/LightFalloff2.png"
-dest_files=["res://.godot/imported/LightFalloff2.png-0688692b16fd58fc3e5d9105c0e2af17.s3tc.ctex", "res://.godot/imported/LightFalloff2.png-0688692b16fd58fc3e5d9105c0e2af17.etc2.ctex"]
+source_file="res://meshes/cone_LightFalloff2.png"
+dest_files=["res://.godot/imported/cone_LightFalloff2.png-a5c19232681709ed98c9272a73f014ff.s3tc.ctex", "res://.godot/imported/cone_LightFalloff2.png-a5c19232681709ed98c9272a73f014ff.etc2.ctex"]
 
 [params]
 

@@ -11,16 +11,16 @@ var pulse_timer: float = 0.0
 var mesh_material_copy: StandardMaterial3D
 
 func _ready() -> void:
-	mesh_material_copy = mesh_material.duplicate()
-	$GlowSphere.material_override = mesh_material_copy
-	
-	if random_pulse_start:
-		pulse_timer = randf() * 10.0
+  mesh_material_copy = mesh_material.duplicate()
+  $GlowSphere.material_override = mesh_material_copy
+  
+  if random_pulse_start:
+    pulse_timer = randf() * 10.0
 
 func _process(delta: float) -> void:
-	pulse_timer += delta * pulse_speed
-	
-	var pulse_value = (sin(pulse_timer) + 1.0) / 2.0
-	var alpha = lerp(min_alpha, max_alpha, pulse_value)
+  pulse_timer += delta * pulse_speed
+  
+  var pulse_value = (sin(pulse_timer) + 1.0) / 2.0
+  var alpha = lerp(min_alpha, max_alpha, pulse_value)
 
-	mesh_material_copy.albedo_color.a = alpha
+  mesh_material_copy.albedo_color.a = alpha

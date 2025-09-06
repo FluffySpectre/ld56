@@ -2,8 +2,8 @@
 
 [ext_resource type="FontFile" uid="uid://cncbcdep2jpwx" path="res://font/Silkscreen-Regular.ttf" id="1_b2qum"]
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="2_rf22q"]
-[ext_resource type="Script" path="res://scripts/goto_scene_trigger.gd" id="3_8hfdf"]
-[ext_resource type="Script" path="res://scripts/light_flicker.gd" id="3_y13ur"]
+[ext_resource type="Script" uid="uid://drtv0pjvruaft" path="res://scripts/goto_scene_trigger.gd" id="3_8hfdf"]
+[ext_resource type="Script" uid="uid://yt1pvfqvx11b" path="res://scripts/light_flicker.gd" id="3_y13ur"]
 
 [sub_resource type="Environment" id="Environment_j7apc"]
 background_mode = 1

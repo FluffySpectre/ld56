@@ -4,6 +4,7 @@
 
 [resource]
 transparency = 1
+albedo_color = Color(1, 1, 1, 0.7058824)
 albedo_texture = ExtResource("1_fbecx")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)

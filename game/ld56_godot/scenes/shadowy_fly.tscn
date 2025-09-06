@@ -1,24 +1,18 @@
 [gd_scene load_steps=14 format=3 uid="uid://dxy0e6ugwotg7"]
 
-[ext_resource type="Script" path="res://scripts/firefly_controller.gd" id="1_7p2yb"]
+[ext_resource type="Script" uid="uid://fapvb02wprru" path="res://scripts/firefly_controller.gd" id="1_7p2yb"]
 [ext_resource type="Texture2D" uid="uid://ckovny5nm6vr" path="res://textures/shadowfly_1.png" id="2_525wu"]
 [ext_resource type="Texture2D" uid="uid://dw4pu2ob3lc74" path="res://textures/shadowfly_2.png" id="3_sftp8"]
-[ext_resource type="Script" path="res://scripts/blinking_glow.gd" id="4_7k6u8"]
-[ext_resource type="Script" path="res://scripts/invisible_in_light.gd" id="5_ep8y2"]
+[ext_resource type="Script" uid="uid://c81nbheexlukw" path="res://scripts/blinking_glow.gd" id="4_7k6u8"]
+[ext_resource type="Script" uid="uid://bx010cw0p03nb" path="res://scripts/animate_texture.gd" id="4_nybv0"]
+[ext_resource type="Script" uid="uid://ceyis6jqlj5gl" path="res://scripts/invisible_in_light.gd" id="5_ep8y2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tnwb5"]
 radius = 0.2
 
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_s0glm"]
-frames = 2
-frame_0/texture = ExtResource("2_525wu")
-frame_0/duration = 0.1
-frame_1/texture = ExtResource("3_sftp8")
-frame_1/duration = 0.1
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07luk"]
 transparency = 1
-albedo_texture = SubResource("AnimatedTexture_s0glm")
+albedo_texture = ExtResource("2_525wu")
 emission = Color(1, 1, 1, 1)
 rim_enabled = true
 texture_filter = 0
@@ -70,6 +64,11 @@ shape = SubResource("SphereShape3D_tnwb5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_5edoh")
+
+[node name="AnimateTexture" type="Node" parent="MeshInstance3D"]
+script = ExtResource("4_nybv0")
+frames = Array[Texture2D]([ExtResource("3_sftp8"), ExtResource("2_525wu")])
+metadata/_custom_type_script = "uid://bx010cw0p03nb"
 
 [node name="BlinkingGlow" type="Node3D" parent="."]
 script = ExtResource("4_7k6u8")

@@ -5,18 +5,18 @@ class_name StoryTriggerArea extends Area3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	body_entered.connect(on_body_entered, CONNECT_ONE_SHOT)
+  body_entered.connect(on_body_entered, CONNECT_ONE_SHOT)
 
 func on_body_entered(body: Node3D):
-	if !body.is_in_group("player"):
-		return
+  if !body.is_in_group("player"):
+    return
 
-	if block_player_input:
-		Player.instance.can_be_controlled(false)
-	
-	Story.instance.play_custom(story_texts)
-	Story.instance.story_stopped.connect(on_story_completed, CONNECT_ONE_SHOT)
+  if block_player_input:
+    Player.instance.can_be_controlled(false)
+  
+  Story.instance.play_custom(story_texts)
+  Story.instance.story_stopped.connect(on_story_completed, CONNECT_ONE_SHOT)
 
 func on_story_completed():
-	if block_player_input:
-		Player.instance.can_be_controlled(true)
+  if block_player_input:
+    Player.instance.can_be_controlled(true)
