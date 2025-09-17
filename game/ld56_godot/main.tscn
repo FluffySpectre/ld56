@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://dbmdkqxxeio4r"]
+[gd_scene load_steps=89 format=4 uid="uid://dbmdkqxxeio4r"]
 
 [ext_resource type="PackedScene" uid="uid://bqn72hexmnkyx" path="res://scenes/cone.tscn" id="1_gw4sq"]
 [ext_resource type="Script" uid="uid://5gxcvu4a3iy1" path="res://scripts/camera_controller.gd" id="1_jab5s"]
@@ -10,21 +10,33 @@
 [ext_resource type="PackedScene" uid="uid://dxy0e6ugwotg7" path="res://scenes/shadowy_fly.tscn" id="5_iilbq"]
 [ext_resource type="Script" uid="uid://k3n27hr1ay2w" path="res://scripts/light.gd" id="6_iaqkc"]
 [ext_resource type="Texture2D" uid="uid://cwrw2kxws7re0" path="res://textures/light_plate.png" id="7_fbx4a"]
+[ext_resource type="Script" uid="uid://dpkny7hxrnxrc" path="res://scripts/footsteps.gd" id="9_kq58d"]
 [ext_resource type="Script" uid="uid://cql7rorv6ccb7" path="res://scripts/spawner.gd" id="10_ck0am"]
 [ext_resource type="Script" uid="uid://cqvmdjvj6mdpf" path="res://scripts/flicker.gd" id="10_di11i"]
+[ext_resource type="AudioStream" uid="uid://dpp3bsybptti4" path="res://sfx/footstep_grass_1.mp3" id="10_jq2sk"]
 [ext_resource type="PackedScene" uid="uid://cmxj6n4rqd1aa" path="res://scenes/grass.tscn" id="10_ls30s"]
 [ext_resource type="Material" uid="uid://trriwh02ncae" path="res://materials/flashlight_cone.tres" id="11_0odxb"]
+[ext_resource type="AudioStream" uid="uid://dot0swmcm4sma" path="res://sfx/footstep_grass_2.mp3" id="11_4k2k6"]
+[ext_resource type="AudioStream" uid="uid://cnkxkd80fknec" path="res://sfx/footstep_grass_3.mp3" id="12_0rl1p"]
 [ext_resource type="Texture2D" uid="uid://cnyxw65oehb7k" path="res://textures/sphere_fade.png" id="12_77hfi"]
 [ext_resource type="Script" uid="uid://b31f1u78kw2sy" path="res://scripts/the_sphere.gd" id="12_4071j"]
+[ext_resource type="AudioStream" uid="uid://cs08hjhoi4bq6" path="res://sfx/footstep_grass_4.mp3" id="13_ok6jj"]
+[ext_resource type="AudioStream" uid="uid://by8rutjdrb7wy" path="res://sfx/footstep_grass_5.mp3" id="14_facbu"]
+[ext_resource type="AudioStream" uid="uid://mnoxet1je7tg" path="res://sfx/footstep_grass_6.mp3" id="15_b1qrp"]
 [ext_resource type="Texture2D" uid="uid://bapq53fkaxsa8" path="res://textures/white.png" id="15_nyr2n"]
 [ext_resource type="Script" uid="uid://chy0t3jc1blc0" path="res://scripts/power_indicator.gd" id="15_rk3v0"]
+[ext_resource type="AudioStream" uid="uid://b4lgswscv1xc2" path="res://sfx/footstep_grass_7.mp3" id="16_4k2k6"]
+[ext_resource type="AudioStream" uid="uid://brt1qekrvo08k" path="res://sfx/footstep_grass_8.mp3" id="17_facbu"]
 [ext_resource type="FontFile" uid="uid://cncbcdep2jpwx" path="res://font/Silkscreen-Regular.ttf" id="17_n7xnx"]
+[ext_resource type="AudioStream" uid="uid://bhsbfb0mab127" path="res://sfx/footstep_grass_9.mp3" id="18_b1qrp"]
 [ext_resource type="Script" uid="uid://cni8if23ecj44" path="res://scripts/story.gd" id="18_xx55a"]
+[ext_resource type="AudioStream" uid="uid://5h1ab3fwbdha" path="res://sfx/footstep_grass_10.mp3" id="19_come4"]
 [ext_resource type="Script" uid="uid://d1prk307g5bs7" path="res://scripts/ending.gd" id="19_xf7ca"]
 [ext_resource type="Script" uid="uid://uu43rkg6qawb" path="res://scripts/story_trigger_area.gd" id="20_d2wk5"]
 [ext_resource type="Script" uid="uid://dv7tegkvb1cf7" path="res://scripts/screen_fade.gd" id="20_lgc6x"]
 [ext_resource type="Script" uid="uid://yt1pvfqvx11b" path="res://scripts/light_flicker.gd" id="24_fymfn"]
 [ext_resource type="Script" uid="uid://drtv0pjvruaft" path="res://scripts/goto_scene_trigger.gd" id="25_mwya2"]
+[ext_resource type="AudioStream" uid="uid://tm1wuy6tdxr6" path="res://sfx/night_ambience.mp3" id="26_lswn8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x4gb1"]
 size = Vector3(5, 10, 200)
@@ -365,6 +377,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.515558, 4.17834, 0)
 
 [node name="AttackTarget" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.688693, 1.10728, 0.375698)
+
+[node name="Footsteps" type="Node3D" parent="Player"]
+script = ExtResource("9_kq58d")
+footstep_sounds = Array[AudioStream]([ExtResource("10_jq2sk"), ExtResource("11_4k2k6"), ExtResource("12_0rl1p"), ExtResource("13_ok6jj"), ExtResource("14_facbu"), ExtResource("15_b1qrp"), ExtResource("16_4k2k6"), ExtResource("17_facbu"), ExtResource("18_b1qrp"), ExtResource("19_come4")])
+volume_db = 5.0
+spatial_range = 500.0
+metadata/_custom_type_script = "uid://dpkny7hxrnxrc"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0o4g1")
@@ -985,5 +1004,10 @@ script = ExtResource("25_mwya2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Splash/FireflyTarget"]
 shape = SubResource("BoxShape3D_lv435")
+
+[node name="AmbientSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("26_lswn8")
+attenuation_model = 3
+autoplay = true
 
 [editable path="Splash/ShadowyFly"]
